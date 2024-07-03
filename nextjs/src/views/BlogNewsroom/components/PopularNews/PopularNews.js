@@ -1,5 +1,4 @@
-/* eslint-disable react/no-unescaped-entities */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -8,36 +7,50 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Chip from '@mui/material/Chip';
 import Button from '@mui/material/Button';
-
-const mock = [
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img3.jpg',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    title: 'Lorem ipsum dolor sit amet',
-    tags: ['UX', 'Design', 'Themes', 'Photography'],
-    author: {
-      name: 'Clara Bertoletti',
-      avatar: 'https://assets.maccarianagency.com/avatars/img3.jpg',
-    },
-    date: '04 Aug',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img25.jpg',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    title: 'Consectetur adipiscing elit',
-    tags: ['UX', 'Design', 'Themes', 'Photography'],
-    author: {
-      name: 'Jhon Anderson',
-      avatar: 'https://assets.maccarianagency.com/avatars/img5.jpg',
-    },
-    date: '12 Sep',
-  },
-];
+import { getBlogs } from 'services/strapi';
 
 const PopularNews = () => {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const theme = useTheme();
+
+  useEffect(() => {
+    let isMounted = true; // bandera para evitar la actualización si el componente está desmontado
+    const fetchPosts = async () => {
+      try {
+        const data = await getBlogs();
+        if (isMounted) {
+          console.log('Fetched data:', data);
+          setPosts(data);
+        }
+      } catch (error) {
+        if (isMounted) {
+          console.error('Error fetching blog posts:', error);
+          setError(error);
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchPosts();
+
+    return () => {
+      isMounted = false; // desmontar el componente
+    };
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
   return (
     <Box>
       <Box marginBottom={4}>
@@ -64,7 +77,7 @@ const PopularNews = () => {
         </Typography>
       </Box>
       <Grid container spacing={4}>
-        {mock.map((item, i) => (
+        {posts.map((item, i) => (
           <Grid key={i} item xs={12}>
             <Box
               component={Card}
@@ -89,8 +102,8 @@ const PopularNews = () => {
                   loading="lazy"
                   height={1}
                   width={1}
-                  src={item.image}
-                  alt="..."
+                  src={`http://localhost:1337${item.attributes.image.data[0].attributes.url}`}
+                  alt={item.attributes.image.data[0].attributes.name}
                   sx={{
                     objectFit: 'cover',
                     maxHeight: 360,
@@ -113,10 +126,10 @@ const PopularNews = () => {
                 }}
               >
                 <Box>
-                  {item.tags.map((item) => (
+                  {item.attributes.tags.map((tag) => (
                     <Chip
-                      key={item}
-                      label={item}
+                      key={tag}
+                      label={tag}
                       component="a"
                       href=""
                       clickable
@@ -131,7 +144,7 @@ const PopularNews = () => {
                   fontWeight={700}
                   sx={{ textTransform: 'uppercase' }}
                 >
-                  {item.title}
+                  {item.attributes.title}
                 </Typography>
                 <Box marginY={1}>
                   <Typography
@@ -139,11 +152,11 @@ const PopularNews = () => {
                     color={'text.secondary'}
                     component={'i'}
                   >
-                    {item.author.name} - {item.date}
+                    {item.attributes.author} - {item.attributes.publishedDate}
                   </Typography>
                 </Box>
                 <Typography color="text.secondary">
-                  {item.description}
+                  {item.attributes.description}
                 </Typography>
                 <Box marginTop={2} display={'flex'} justifyContent={'flex-end'}>
                   <Button

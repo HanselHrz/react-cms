@@ -41,6 +41,7 @@
     "@mui/icons-material": "^5.15.0",
     "@mui/material": "^5.15.0",
     "aos": "^2.3.4",
+    "axios": "^1.7.2",
     "card-validator": "^9.0.0",
     "formik": "^2.4.5",
     "jarallax": "^2.1.4",
