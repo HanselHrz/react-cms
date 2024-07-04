@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "web_basics",
+  "info": {
+    "singularName": "web-basic",
+    "pluralName": "web-basics",
+    "displayName": "Web basic"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "Content": {
+      "type": "richtext"
+    }
+  }
+}

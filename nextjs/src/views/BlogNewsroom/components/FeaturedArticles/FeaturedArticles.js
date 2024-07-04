@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -9,6 +9,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
+import { getBlogs } from 'services/strapi';
 
 const mock = [
   {
@@ -46,7 +47,46 @@ const mock = [
 ];
 
 const FeaturedArticles = () => {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const theme = useTheme();
+
+  useEffect(() => {
+    let isMounted = true; // bandera para evitar la actualización si el componente está desmontado
+    const fetchPosts = async () => {
+      try {
+        const data = await getBlogs();
+        if (isMounted) {
+          console.log('Fetched data:', data);
+          setPosts(data);
+        }
+      } catch (error) {
+        if (isMounted) {
+          console.error('Error fetching blog posts:', error);
+          setError(error);
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchPosts();
+
+    return () => {
+      isMounted = false; // desmontar el componente
+    };
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
   return (
     <Box>
       <Box
@@ -77,7 +117,7 @@ const FeaturedArticles = () => {
         </Box>
       </Box>
       <Grid container spacing={4}>
-        {mock.map((item, i) => (
+        {posts.slice(2, 5).map((item, i) => (
           <Grid item xs={12} md={4} key={i}>
             <Box
               component={'a'}
@@ -101,8 +141,8 @@ const FeaturedArticles = () => {
                 sx={{ bgcolor: 'transparent', backgroundImage: 'none' }}
               >
                 <CardMedia
-                  image={item.image}
-                  title={item.title}
+                  image={`http://localhost:1337${item.attributes.image.data[0].attributes.url}`}
+                  title={item.attributes.title}
                   sx={{
                     height: { xs: 300, md: 360 },
                     position: 'relative',
@@ -126,10 +166,10 @@ const FeaturedArticles = () => {
                 >
                   <Box component={CardContent} position={'relative'}>
                     <Typography variant={'h6'} gutterBottom>
-                      {item.title}
+                      {item.attributes.title}
                     </Typography>
                     <Typography color="text.secondary">
-                      {item.description}
+                      {item.attributes.description}
                     </Typography>
                   </Box>
                   <Box flexGrow={1} />
@@ -144,15 +184,15 @@ const FeaturedArticles = () => {
                     >
                       <Box display={'flex'} alignItems={'center'}>
                         <Avatar
-                          src={item.author.avatar}
+                          src={`http://localhost:1337${item.attributes.avatar.data.attributes.url}`}
                           sx={{ marginRight: 1 }}
                         />
                         <Typography color={'text.secondary'}>
-                          {item.author.name}
+                          {item.attributes.user.data.attributes.username}
                         </Typography>
                       </Box>
                       <Typography color={'text.secondary'}>
-                        {item.date}
+                        {item.attributes.publishedDate}
                       </Typography>
                     </Box>
                   </Box>

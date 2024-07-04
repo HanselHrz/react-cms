@@ -77,7 +77,7 @@ const Hero = () => {
               marginBottom: 2,
             }}
           >
-            Remote work is the future, but should you go remote?
+            Remote work is the futuree, but should you go remote?
           </Typography>
           <Box display={'flex'} alignItems={'center'}>
             <Avatar

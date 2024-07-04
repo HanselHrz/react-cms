@@ -77,7 +77,7 @@ const PopularNews = () => {
         </Typography>
       </Box>
       <Grid container spacing={4}>
-        {posts.map((item, i) => (
+        {posts.slice(0, 2).map((item, i) => (
           <Grid key={i} item xs={12}>
             <Box
               component={Card}
