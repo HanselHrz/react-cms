@@ -1,5 +1,5 @@
-/* eslint-disable react/no-unescaped-entities */
 import React from 'react';
+import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -9,8 +9,12 @@ import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
 import { useTheme } from '@mui/material/styles';
 
-const Team = () => {
+const Team = ({ data }) => {
   const theme = useTheme();
+
+  if (!data) {
+    return null;
+  }
 
   return (
     <Box>
@@ -19,20 +23,14 @@ const Team = () => {
           <Box>
             <Box marginBottom={2}>
               <Typography variant={'h4'} sx={{ fontWeight: 700 }} gutterBottom>
-                Our leaders will help you
+                {data.title}
               </Typography>
               <Typography color="text.secondary">
-                We develop intelligent solutions for companies to reduce their
-                operational costs, increase their profitability and improve
-                service quality.
+                {data.description}
               </Typography>
             </Box>
             <Grid container spacing={1}>
-              {[
-                'Our sign up is dead simple. We only require your basic company information',
-                'We support bulk uploading via SQL, integrations with most data storage products',
-                'Simply select where you\'d like to transfer your data',
-              ].map((item, i) => (
+              {data.items.map((item, i) => (
                 <Grid item xs={12} key={i}>
                   <Box
                     component={ListItem}
@@ -66,7 +64,7 @@ const Team = () => {
                         </svg>
                       </Box>
                     </Box>
-                    <ListItemText primary={item} />
+                    <ListItemText primary={item.description} />
                   </Box>
                 </Grid>
               ))}
@@ -75,63 +73,36 @@ const Team = () => {
         </Grid>
         <Grid item xs={12} md={6}>
           <Box height={1} width={1} display={'flex'} flexDirection={'column'}>
-            <Box
-              component={'img'}
-              src={'https://assets.maccarianagency.com/backgrounds/img1.jpg'}
-              alt="..."
-              width={160}
-              height={160}
-              marginLeft={'calc(60% - 160px)'}
-              zIndex={3}
-              borderRadius={'100%'}
-              boxShadow={4}
-              data-aos={'fade-up'}
-              sx={{
-                objectFit: 'cover',
-                filter:
-                  theme.palette.mode === 'dark' ? 'brightness(0.5)' : 'none',
-              }}
-            />
-            <Box
-              component={'img'}
-              width={200}
-              height={200}
-              src={'https://assets.maccarianagency.com/backgrounds/img2.jpg'}
-              alt="..."
-              marginTop={'-8%'}
-              zIndex={2}
-              borderRadius={'100%'}
-              boxShadow={4}
-              data-aos={'fade-up'}
-              sx={{
-                objectFit: 'cover',
-                filter:
-                  theme.palette.mode === 'dark' ? 'brightness(0.5)' : 'none',
-              }}
-            />
-            <Box
-              component={'img'}
-              width={300}
-              height={300}
-              src={'https://assets.maccarianagency.com/backgrounds/img4.jpg'}
-              alt="..."
-              marginTop={'-20%'}
-              marginLeft={'calc(100% - 300px)'}
-              zIndex={1}
-              borderRadius={'100%'}
-              boxShadow={4}
-              data-aos={'fade-up'}
-              sx={{
-                objectFit: 'cover',
-                filter:
-                  theme.palette.mode === 'dark' ? 'brightness(0.5)' : 'none',
-              }}
-            />
+            {data.items.map((item, i) => (
+              <Box
+                key={i}
+                component={'img'}
+                src={`http://localhost:1337${item.images?.data?.[0]?.attributes?.url}`}
+                alt={item.title || '...'}
+                width={160}
+                height={160}
+                marginLeft={i === 0 ? 'calc(60% - 160px)' : 0}
+                marginTop={i !== 0 ? '-8%' : 0}
+                zIndex={3 - i}
+                borderRadius={'100%'}
+                boxShadow={4}
+                data-aos={'fade-up'}
+                sx={{
+                  objectFit: 'cover',
+                  filter:
+                    theme.palette.mode === 'dark' ? 'brightness(0.5)' : 'none',
+                }}
+              />
+            ))}
           </Box>
         </Grid>
       </Grid>
     </Box>
   );
+};
+
+Team.propTypes = {
+  data: PropTypes.object.isRequired,
 };
 
 export default Team;

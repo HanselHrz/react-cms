@@ -8,32 +8,15 @@ import Grid from '@mui/material/Grid';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
+import PropTypes from 'prop-types';
 
-const mock = [
-  {
-    feedback:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    name: 'Clara Bertoletti',
-    title: 'MUI lover',
-    avatar: 'https://assets.maccarianagency.com/avatars/img4.jpg',
-  },
-  {
-    feedback:
-      'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    name: 'Jhon Anderson',
-    title: 'Senior Frontend Developer',
-    avatar: 'https://assets.maccarianagency.com/avatars/img5.jpg',
-  },
-  {
-    feedback:
-      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    name: 'Chary Smith',
-    title: 'SEO at Comoti',
-    avatar: 'https://assets.maccarianagency.com/avatars/img6.jpg',
-  },
-];
+const Reviews = ({ data }) => {
+  if (!data || !data.comments) return null;
 
-const Reviews = () => {
+  const title = data.title;
+  const description = data.description;
+  const comments = data.comments;
+
   return (
     <Box>
       <Box marginBottom={4}>
@@ -47,7 +30,7 @@ const Reviews = () => {
             color: 'common.white',
           }}
         >
-          Trusted by the world’s most innovative businesses – big and small
+          {title}
         </Typography>
         <Typography
           variant="h6"
@@ -55,14 +38,11 @@ const Reviews = () => {
           data-aos={'fade-up'}
           sx={{ color: 'common.white' }}
         >
-          Companies from across the globe have had fantastic experiences using
-          theFront.
-          <br />
-          Here’s what they have to say.
+          {description}
         </Typography>
       </Box>
       <Grid container spacing={2}>
-        {mock.map((item, i) => (
+        {comments.map((item, i) => (
           <Grid item xs={12} md={4} key={i}>
             <Box
               width={1}
@@ -89,19 +69,19 @@ const Reviews = () => {
                   <ListItem component="div" disableGutters sx={{ padding: 0 }}>
                     <ListItemAvatar sx={{ marginRight: 3 }}>
                       <Avatar
-                        src={item.avatar}
+                        src={`http://localhost:1337${item.avatar.data.attributes.formats.small.url}`}
                         variant={'rounded'}
                         sx={{ width: 100, height: 100, borderRadius: 2 }}
                       />
                     </ListItemAvatar>
                     <ListItemText
                       sx={{ margin: 0 }}
-                      primary={item.name}
-                      secondary={item.title}
+                      primary={item.userName}
+                      secondary={item.state}
                     />
                   </ListItem>
                 </Box>
-                <Typography color="text.secondary">{item.feedback}</Typography>
+                <Typography color="text.secondary">{item.description}</Typography>
               </CardContent>
             </Box>
           </Grid>
@@ -109,6 +89,31 @@ const Reviews = () => {
       </Grid>
     </Box>
   );
+};
+
+Reviews.propTypes = {
+  data: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+    comments: PropTypes.arrayOf(
+      PropTypes.shape({
+        description: PropTypes.string,
+        state: PropTypes.string,
+        userName: PropTypes.string,
+        avatar: PropTypes.shape({
+          data: PropTypes.shape({
+            attributes: PropTypes.shape({
+              formats: PropTypes.shape({
+                thumbnail: PropTypes.shape({
+                  url: PropTypes.string,
+                }),
+              }),
+            }),
+          }),
+        }),
+      })
+    ),
+  }),
 };
 
 export default Reviews;

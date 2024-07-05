@@ -1,31 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 
-const mock = [
-  {
-    title: 'Google Drive',
-    subtitle:
-      'A very simple and modern template with a very harmonious color scheme. Also the additional plugins like the statistics are great and fit perfectly into the overall picture.',
-    icon: 'https://assets.maccarianagency.com/svg/logos/google-drive.svg',
-  },
-  {
-    title: 'Google Ad Manager',
-    subtitle:
-      'A very simple and modern template with a very harmonious color scheme. Also the additional plugins like the statistics are great and fit perfectly into the overall picture.',
-    icon: 'https://assets.maccarianagency.com/svg/logos/google-ad-manager.svg',
-  },
-  {
-    title: 'Atlassian',
-    subtitle:
-      'Keep your entire team in sync with development and easily manage tasks, goals, and deadlines. Easily manage and edit any Adwords campaign inline to improve ROI with constant review.',
-    icon: 'https://assets.maccarianagency.com/svg/logos/atlassian.svg',
-  },
-];
+const iconMapping = {
+  'Google Drive': 'https://assets.maccarianagency.com/svg/logos/google-drive.svg',
+  'Google Ad Manager': 'https://assets.maccarianagency.com/svg/logos/google-ad-manager.svg',
+  'Atlassian': 'https://assets.maccarianagency.com/svg/logos/atlassian.svg',
+};
 
-const Integrations = () => {
+const Integrations = ({ data }) => {
+  if (!data) {
+    return null;
+  }
+
   return (
     <Box>
       <Box marginBottom={4}>
@@ -35,7 +25,7 @@ const Integrations = () => {
           align={'center'}
           sx={{ fontWeight: 700, color: 'common.white' }}
         >
-          Syncronization with different companiees
+          {data.title || 'Sincronización con diferentes empresas'}
         </Typography>
         <Typography
           variant={'h6'}
@@ -44,12 +34,11 @@ const Integrations = () => {
           align={'center'}
           sx={{ color: 'common.white' }}
         >
-          Forward thinking businesses use our cloud backup service to ensure
-          data reliability and safety.
+          {data.description || 'Las empresas con visión de futuro utilizan nuestro servicio de respaldo en la nube para garantizar la fiabilidad y seguridad de los datos.'}
         </Typography>
       </Box>
       <Grid container spacing={2}>
-        {mock.map((item, i) => (
+        {data.items.map((item, i) => (
           <Grid item xs={12} md={4} key={i}>
             <Box
               sx={{
@@ -63,7 +52,7 @@ const Integrations = () => {
                 width={{ xs: 60, md: 80 }}
                 height={{ xs: 60, md: 80 }}
                 marginBottom={2}
-                src={item.icon}
+                src={iconMapping[item.title] || ''}
               />
               <Typography
                 variant={'h6'}
@@ -74,7 +63,7 @@ const Integrations = () => {
                 {item.title}
               </Typography>
               <Typography sx={{ color: 'common.white' }} align={'center'}>
-                {item.subtitle}
+                {item.description}
               </Typography>
             </Box>
           </Grid>
@@ -82,6 +71,10 @@ const Integrations = () => {
       </Grid>
     </Box>
   );
+};
+
+Integrations.propTypes = {
+  data: PropTypes.object,
 };
 
 export default Integrations;

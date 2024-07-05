@@ -1,11 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
+import { getTerms } from '../../../../services/strapi';
 
 const ContactCard = () => {
   const theme = useTheme();
+  const [contactInfo, setContactInfo] = useState(null);
+
+  useEffect(() => {
+    const fetchTerms = async () => {
+      try {
+        const data = await getTerms();
+        setContactInfo(data.attributes.contactUs);
+      } catch (error) {
+        console.error('Error fetching contact info:', error);
+      }
+    };
+
+    fetchTerms();
+  }, []);
+
+  if (!contactInfo) {
+    return null;
+  }
 
   return (
     <Box
@@ -20,7 +39,7 @@ const ContactCard = () => {
           }}
           gutterBottom
         >
-          How can you contact us about this notice?
+          {contactInfo.question}
         </Typography>
         <Typography
           variant={'body2'}
@@ -29,17 +48,14 @@ const ContactCard = () => {
             marginBottom: 2,
           }}
         >
-          If you have any questions or concerns about the privacy policy please
-          contact us.
+          {contactInfo.paragraph}
         </Typography>
         <Typography variant={'subtitle2'}>
-          hi@maccarianagency.com
+          {contactInfo.email}
           <br />
-          via Gola 4
+          {contactInfo.address.split(' ').slice(0, -2).join(' ')}
           <br />
-          Milan, Milano 20143
-          <br />
-          Italy
+          {contactInfo.address.split(' ').slice(-2).join(' ')}
         </Typography>
       </Box>
     </Box>

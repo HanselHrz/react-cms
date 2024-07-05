@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_comments_comments",
+  "info": {
+    "displayName": "comments",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "avatar": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "state": {
+      "type": "string"
+    },
+    "userName": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "kind": "singleType",
+  "collectionName": "terms",
+  "info": {
+    "singularName": "term",
+    "pluralName": "terms",
+    "displayName": "terms",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "questions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::question.question"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "contactUs": {
+      "type": "component",
+      "repeatable": false,
+      "component": "pops.contac-us-pop"
+    }
+  }
+}

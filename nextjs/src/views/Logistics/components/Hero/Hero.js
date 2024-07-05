@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -8,17 +9,21 @@ import { alpha, useTheme } from '@mui/material/styles';
 
 import Container from 'components/Container';
 
-const Hero = () => {
+const Hero = ({ data }) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
 
+  if (!data) {
+    return null; // O algún componente de carga
+  }
+
   const LeftSide = () => (
     <Box data-aos={isMd ? 'fade-right' : 'fade-up'}>
       <Box marginBottom={2}>
         <Typography variant="h2" color="text.primary" sx={{ fontWeight: 700 }}>
-          We make trucking{' '}
+          {data.title || 'We make trucking'}
         </Typography>
         <Typography
           color={'primary'}
@@ -32,17 +37,15 @@ const Hero = () => {
             )} 0%)`,
           }}
         >
-          efficient
         </Typography>
       </Box>
       <Box marginBottom={3}>
         <Typography variant="h6" component="p" color="text.secondary">
-          Forward thinking businesses use our cloud backup service to ensure
-          data reliability and safety.
+          {data.description || 'Forward thinking businesses use our cloud backup service to ensure data reliability and safety.'}
         </Typography>
       </Box>
       <Button variant="contained" color="primary" size="large">
-        Get started
+        Comienza
       </Button>
     </Box>
   );
@@ -144,6 +147,13 @@ const Hero = () => {
       <Divider />
     </Box>
   );
+};
+
+Hero.propTypes = {
+  data: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+  }),
 };
 
 export default Hero;

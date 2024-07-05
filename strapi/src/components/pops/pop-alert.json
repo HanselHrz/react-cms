@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_pops_pop_alerts",
+  "info": {
+    "displayName": "PopAlert"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

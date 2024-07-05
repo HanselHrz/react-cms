@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -6,26 +5,30 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import PropTypes from 'prop-types';
 
-export const mock = [
+const mock = [
   {
-    title: 'Front-End Developer',
+    title: 'Desarrollador Front-End',
     location: 'Madrid',
-    type: 'Remote',
+    type: 'Remoto',
   },
   {
-    title: 'Community Manager',
-    location: 'Paris',
-    type: 'Full time',
+    title: 'Gerente de Comunidad',
+    location: 'París',
+    type: 'Tiempo completo',
   },
   {
-    title: 'UX/UI Designer',
-    location: 'Yerevan',
-    type: 'Part time',
+    title: 'Diseñador UX/UI',
+    location: 'Ereván',
+    type: 'Medio tiempo',
   },
 ];
 
-const Jobs = () => {
+const Jobs = ({ data }) => {
+  const title = data?.title || 'Estamos contratando';
+  const subtitle = data?.subtitle || 'Mantén un registro de lo que sucede con tus datos, cambia permisos y ejecuta informes sobre tus datos en cualquier lugar del mundo.';
+
   return (
     <Box>
       <Box marginBottom={4}>
@@ -38,7 +41,7 @@ const Jobs = () => {
             fontWeight: 700,
           }}
         >
-          We are hiring
+          {title}
         </Typography>
         <Typography
           variant="h6"
@@ -46,14 +49,11 @@ const Jobs = () => {
           color={'text.secondary'}
           data-aos={'fade-up'}
         >
-          Keep track of what's happening with your data, change permissions, and
-          run
-          <br />
-          reports against your data anywhere in the world.
+          {subtitle}
         </Typography>
         <Box display="flex" justifyContent={'center'} marginTop={2}>
           <Button variant="contained" color="primary" size="large">
-            View all positions
+            Ver todas las posiciones
           </Button>
         </Box>
       </Box>
@@ -118,6 +118,20 @@ const Jobs = () => {
       </Box>
     </Box>
   );
+};
+
+Jobs.propTypes = {
+  data: PropTypes.shape({
+    title: PropTypes.string,
+    subtitle: PropTypes.string,
+    items: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        location: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+      }),
+    ),
+  }),
 };
 
 export default Jobs;
