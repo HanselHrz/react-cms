@@ -7,16 +7,16 @@ import Link from '@mui/material/Link';
 const mock = [
   {
     href: '#',
-    title: 'Help Center',
+    title: 'Centro de ayuda',
     isActive: false,
   },
   {
     href: '#',
-    title: 'Articles',
+    title: 'Artículos',
     isActive: false,
   },
   {
-    title: 'Account',
+    title: 'Cuenta',
     isActive: true,
   },
 ];

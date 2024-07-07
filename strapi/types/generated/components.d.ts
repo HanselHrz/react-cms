@@ -15,6 +15,33 @@ export interface CommentsComments extends Schema.Component {
   };
 }
 
+export interface GenericsAccordion extends Schema.Component {
+  collectionName: 'components_generics_accordions';
+  info: {
+    displayName: 'Accordion';
+    icon: 'filter';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    subtitle: Attribute.String;
+    description: Attribute.Text;
+    button: Attribute.Component<'generics.button', true>;
+  };
+}
+
+export interface GenericsButton extends Schema.Component {
+  collectionName: 'components_generics_buttons';
+  info: {
+    displayName: 'Button';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    icon: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+  };
+}
+
 export interface ItemsNumItems extends Schema.Component {
   collectionName: 'components_items_num_items';
   info: {
@@ -25,6 +52,7 @@ export interface ItemsNumItems extends Schema.Component {
     description: Attribute.Text;
     images: Attribute.Media<'images' | 'files' | 'videos' | 'audios', true>;
     subtitle: Attribute.String;
+    button: Attribute.Component<'generics.button', true>;
   };
 }
 
@@ -52,13 +80,35 @@ export interface PopsPopAlert extends Schema.Component {
   };
 }
 
+export interface SectionsSections extends Schema.Component {
+  collectionName: 'components_sections_sections';
+  info: {
+    displayName: 'sections';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    subtitle: Attribute.String;
+    description: Attribute.Text;
+    image1: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    video: Attribute.Media<'images' | 'files' | 'videos' | 'audios', true>;
+    items: Attribute.Component<'items-num.items', true>;
+    section_name: Attribute.String;
+    accordion: Attribute.Component<'generics.accordion', true>;
+    button: Attribute.Component<'generics.button', true>;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
       'comments.comments': CommentsComments;
+      'generics.accordion': GenericsAccordion;
+      'generics.button': GenericsButton;
       'items-num.items': ItemsNumItems;
       'pops.contac-us-pop': PopsContacUsPop;
       'pops.pop-alert': PopsPopAlert;
+      'sections.sections': SectionsSections;
     }
   }
 }

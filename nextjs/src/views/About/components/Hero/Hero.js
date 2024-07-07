@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 import Container from 'components/Container';
 
-const Hero = () => {
+const Hero = ({ data }) => {
   useEffect(() => {
     const jarallaxInit = async () => {
       const jarallaxElems = document.querySelectorAll('.jarallax');
@@ -19,6 +20,14 @@ const Hero = () => {
 
     jarallaxInit();
   });
+
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+
+  const imageUrl = data.image1?.data?.attributes?.url 
+    ? `http://localhost:1337${data.image1.data.attributes.url}` 
+    : '';
 
   return (
     <Box
@@ -38,7 +47,6 @@ const Hero = () => {
         sx={{
           position: 'absolute',
           objectFit: 'cover',
-          /* support for plugin https://github.com/bfred-it/object-fit-images */
           fontFamily: 'object-fit: cover;',
           top: 0,
           left: 0,
@@ -48,8 +56,7 @@ const Hero = () => {
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           backgroundPosition: 'center center',
-          backgroundImage:
-            'url(https://assets.maccarianagency.com/backgrounds/img52.jpg)',
+          backgroundImage: `url(${imageUrl})`,
         }}
       />
       <Box
@@ -76,7 +83,7 @@ const Hero = () => {
               textTransform: 'uppercase',
             }}
           >
-            About us
+            {data.title}
           </Typography>
           <Typography
             variant="h6"
@@ -86,13 +93,26 @@ const Hero = () => {
               color: 'common.white',
             }}
           >
-            We are founded by a leading academic and researcher in the field of
-            Industrial Systems Engineering.
+            {data.subtitle}
           </Typography>
         </Box>
       </Container>
     </Box>
   );
+};
+
+Hero.propTypes = {
+  data: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    subtitle: PropTypes.string,
+    image1: PropTypes.shape({
+      data: PropTypes.shape({
+        attributes: PropTypes.shape({
+          url: PropTypes.string,
+        }),
+      }),
+    }),
+  }).isRequired,
 };
 
 export default Hero;

@@ -1,0 +1,22 @@
+{
+  "kind": "singleType",
+  "collectionName": "helpcenters",
+  "info": {
+    "singularName": "helpcenter",
+    "pluralName": "helpcenters",
+    "displayName": "HelpCenter",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "FAQpage": {
+      "type": "dynamiczone",
+      "components": [
+        "sections.sections"
+      ]
+    }
+  }
+}

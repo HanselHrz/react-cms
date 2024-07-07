@@ -23,6 +23,11 @@
     },
     "subtitle": {
       "type": "string"
+    },
+    "button": {
+      "type": "component",
+      "repeatable": true,
+      "component": "generics.button"
     }
   }
 }

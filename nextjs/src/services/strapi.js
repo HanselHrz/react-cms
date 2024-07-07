@@ -67,3 +67,23 @@ export const getLogisticData = async () => {
     throw error;
   }
 };
+
+export const getAboutData = async () => {
+  try {
+    const response = await axios.get(`${API_URL}about?populate[section][populate]=image1,items.images,video`);
+    return response.data.data;
+  } catch (error) {
+    console.error('Error fetching about data:', error);
+    throw error;
+  }
+};
+
+export const getHelpCenterData = async () => {
+  try {
+    const response = await axios.get(`${API_URL}helpcenter?populate[FAQpage][populate]=button,items.button,accordion.button.icon`);
+    return response.data.data;
+  } catch (error) {
+    console.error('Error fetching Help Center data:', error);
+    throw error;
+  }
+};

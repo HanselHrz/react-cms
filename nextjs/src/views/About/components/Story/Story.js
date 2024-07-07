@@ -1,16 +1,26 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import WhoWeAre from '../WhoWeAre/WhoWeAre';
 
-const Story = () => {
+const Story = ({ data }) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
+
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+
+  const imageUrl = data.image1?.data?.attributes?.url 
+    ? `http://localhost:1337${data.image1.data.attributes.url}` 
+    : 'https://assets.maccarianagency.com/svg/illustrations/drawkit-illustration1.svg';
 
   return (
     <Box>
@@ -18,22 +28,15 @@ const Story = () => {
         <Grid item container alignItems={'center'} xs={12} md={6}>
           <Box>
             <Typography variant={'h4'} gutterBottom sx={{ fontWeight: 700 }}>
-              Our story
+              {data.title}
             </Typography>
             <Typography component={'p'}>
-              Our focus is always on finding the best people to work with. Our
-              bar is high, but you look ready to take on the challenge.
-              <br />
-              We design and implement creative solutions to everyday business
-              problems.
-              <br />
-              <br />
-              We are a team of creative consultants who help bridge the digital
-              gap between companies and their clients with websites that not
-              only serve as marketing platforms but also provide solutions to
-              online business problems and digital marketing strategies that
-              connect you with the ideal client and help create a loyal
-              customer.
+              {data.description.split('\n').map((line, index) => (
+                <React.Fragment key={index}>
+                  {line}
+                  <br />
+                </React.Fragment>
+              ))}
             </Typography>
           </Box>
         </Grid>
@@ -48,9 +51,7 @@ const Story = () => {
           <Box maxWidth={500} width={1}>
             <Box
               component={'img'}
-              src={
-                'https://assets.maccarianagency.com/svg/illustrations/drawkit-illustration1.svg'
-              }
+              src={imageUrl}
               width={1}
               height={1}
               sx={{
@@ -61,8 +62,32 @@ const Story = () => {
           </Box>
         </Grid>
       </Grid>
+      <Box mt={4}>
+        <WhoWeAre items={data.items} />
+      </Box>
     </Box>
   );
+};
+
+Story.propTypes = {
+  data: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    image1: PropTypes.shape({
+      data: PropTypes.shape({
+        attributes: PropTypes.shape({
+          url: PropTypes.string,
+        }),
+      }),
+    }),
+    items: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        title: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+      })
+    ),
+  }).isRequired,
 };
 
 export default Story;

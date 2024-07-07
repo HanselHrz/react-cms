@@ -1,13 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-
 import Main from 'layouts/Main';
 import Container from 'components/Container';
 import { Breadcrumb, Categories, Questions } from './components';
+import { getHelpCenterData } from '../../services/strapi';
 
 const HelpCenterArticle = () => {
   const theme = useTheme();
+  const [helpCenterData, setHelpCenterData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getHelpCenterData();
+        setHelpCenterData(data);
+      } catch (error) {
+        console.error('Error fetching Help Center data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (!helpCenterData) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Main>
       <Box bgcolor={'alternate.main'}>
@@ -16,7 +34,7 @@ const HelpCenterArticle = () => {
         </Container>
       </Box>
       <Container>
-        <Questions />
+        <Questions faqData={helpCenterData.attributes.FAQpage} />
       </Container>
       <Box
         position={'relative'}
@@ -25,7 +43,7 @@ const HelpCenterArticle = () => {
         }}
       >
         <Container>
-          <Categories />
+          <Categories categoriesData={helpCenterData.attributes.FAQpage} />
         </Container>
         <Box
           component={'svg'}
