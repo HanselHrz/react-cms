@@ -29,10 +29,13 @@ const mock = [
   },
 ];
 
-const Partners = () => {
+const Partners = (data) => {
+  const info = data.data;
+  const { iconos } = info;
+  const iconsArray = Array.isArray(iconos) ? iconos : Object.values(iconos);
   return (
     <Grid container spacing={0}>
-      {mock.map((item, index) => (
+      {iconsArray.map((item, index) => (
         <Grid
           item
           container
@@ -42,7 +45,7 @@ const Partners = () => {
         >
           <Grid item xs={6}>
             <Avatar
-              src={item.logo}
+              src={`http://localhost:1337${item.url}`}
               sx={{
                 width: { xs: 60, md: 80 },
                 height: { xs: 60, md: 80 },

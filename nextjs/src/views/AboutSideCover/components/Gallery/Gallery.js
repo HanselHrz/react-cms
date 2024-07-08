@@ -5,8 +5,11 @@ import Box from '@mui/material/Box';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 
-const Gallery = () => {
+const Gallery = (data) => {
   const theme = useTheme();
+  const info = data.data;
+  const { galeria } = info;
+  const galeriaArray = Array.isArray(galeria) ? galeria : Object.values(galeria);
 
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -47,12 +50,12 @@ const Gallery = () => {
         rowHeight={isMd ? 300 : 200}
         gap={isMd ? 16 : 4}
       >
-        {photos.map((item, i) => (
+        {galeriaArray.map((item, i) => (
           <ImageListItem key={i} cols={item.cols} rows={item.rows}>
             <img
               height={'100%'}
               width={'100%'}
-              src={item.src}
+              src={`http://localhost:1337${item.url}`}
               alt="..."
               loading="lazy"
               style={{

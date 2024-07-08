@@ -4,49 +4,33 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
-const Story = () => {
+const Story = (data) => {
+  const info = data.data;
+  const { titulo, descripcion, iconos } = info;
+  const iconsArray = Array.isArray(iconos) ? iconos : Object.values(iconos);
   const theme = useTheme();
   return (
     <Box>
       <Grid container spacing={4}>
         <Grid item xs={12} md={6}>
           <Typography fontWeight={700} variant={'h5'}>
-            We design and implement creative solutions to everyday business
-            problems
+            {titulo}
           </Typography>
         </Grid>
         <Grid item xs={12} md={6}>
           <Typography component={'p'} color={'text.secondary'} fontWeight={400}>
-            We are a team of creative consultants who help bridge the digital
-            gap between companies and their clients with websites that not only
-            serve as marketing platforms but also provide solutions to online
-            business problems and digital marketing strategies that connect you
-            with the ideal client and help create a loyal customer.
-            <br />
-            <br />
-            We are a team of creative consultants who help bridge the digital
-            gap between companies and their clients with websites that not only
-            serve as marketing platforms but also provide solutions to online
-            business problems and digital marketing strategies that connect you
-            with the ideal client and help create a loyal customer.
+            {descripcion}
           </Typography>
         </Grid>
         <Grid item xs={12}>
           <Box display="flex" flexWrap="wrap" justifyContent={'center'}>
-            {[
-              'https://assets.maccarianagency.com/svg/logos/airbnb-original.svg',
-              'https://assets.maccarianagency.com/svg/logos/amazon-original.svg',
-              'https://assets.maccarianagency.com/svg/logos/fitbit-original.svg',
-              'https://assets.maccarianagency.com/svg/logos/netflix-original.svg',
-              'https://assets.maccarianagency.com/svg/logos/google-original.svg',
-              'https://assets.maccarianagency.com/svg/logos/paypal-original.svg',
-            ].map((item, i) => (
+            {iconsArray.map((item, i) => (
               <Box maxWidth={90} marginTop={2} marginRight={4} key={i}>
                 <Box
                   component="img"
                   height={1}
                   width={1}
-                  src={item}
+                  src={`http://localhost:1337${item.url}`}
                   alt="..."
                   sx={{
                     filter:

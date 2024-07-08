@@ -4,7 +4,10 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-const Contact = () => {
+const Contact = (data) => {
+  const info = data.data;
+  const { titulo, subTitulo, CTO } = info;
+  console.log('info', titulo, subTitulo, CTO);
   return (
     <Box>
       <Box marginBottom={4}>
@@ -14,7 +17,7 @@ const Contact = () => {
           align={'center'}
           gutterBottom
         >
-          Ready to growth your business?
+          {titulo}
         </Typography>
         <Typography
           variant={'h6'}
@@ -22,8 +25,7 @@ const Contact = () => {
           color={'textSecondary'}
           align={'center'}
         >
-          Your website is fully responsive so visitors can view your content
-          from their choice of device.
+          {subTitulo}
         </Typography>
       </Box>
       <Box maxWidth={600} margin={'0 auto'}>
@@ -64,7 +66,7 @@ const Contact = () => {
               marginTop={{ xs: 2, md: 0 }}
               marginLeft={{ md: 2 }}
             >
-              Request a demo
+              {CTO.titulo}
             </Box>
           </Box>
         </Box>

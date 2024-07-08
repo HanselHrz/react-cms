@@ -43,7 +43,10 @@ const mock = [
   },
 ];
 
-const Team = () => {
+const Team = (data) => {
+  const info = data.data;
+  const { card } = info;
+  console.log(card);
   const theme = useTheme();
   return (
     <Box>
@@ -64,7 +67,7 @@ const Team = () => {
         </Typography>
       </Box>
       <Grid container spacing={2}>
-        {mock.map((item, i) => (
+        {card.map((item, i) => (
           <Grid item xs={12} sm={6} md={3} key={i}>
             <Box
               component={Card}
@@ -80,14 +83,14 @@ const Team = () => {
               <CardContent>
                 <Box
                   component={Avatar}
-                  src={item.avatar}
+                  src={`http://localhost:1337${item.avatar.url}`}
                   height={80}
                   width={80}
                 />
                 <Box marginTop={4}>
-                  <ListItemText primary={item.name} secondary={item.title} />
+                  <ListItemText primary={item.nombre} secondary={item.titulo} />
                   <Typography variant={'subtitle2'} color={'text.secondary'}>
-                    {item.about}
+                    {item.descripcion}
                   </Typography>
                   <Box marginTop={4}>
                     <IconButton size={'small'} color={'primary'}>

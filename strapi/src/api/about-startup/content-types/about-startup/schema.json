@@ -1,11 +1,10 @@
 {
   "kind": "singleType",
-  "collectionName": "abouts",
+  "collectionName": "about_startups",
   "info": {
-    "singularName": "about",
-    "pluralName": "abouts",
-    "displayName": "About",
-    "description": ""
+    "singularName": "about-startup",
+    "pluralName": "about-startups",
+    "displayName": "About-startup"
   },
   "options": {
     "draftAndPublish": true
@@ -15,13 +14,13 @@
     "PageContent": {
       "type": "dynamiczone",
       "components": [
-        "about-side.gallery",
-        "about-side.header",
-        "about-side.story",
         "about-side.card-equipo",
         "about-side.equipo",
         "about-side.estadistica",
-        "about-side.numeros"
+        "about-side.gallery",
+        "about-side.header",
+        "about-side.numeros",
+        "about-side.story"
       ]
     }
   }

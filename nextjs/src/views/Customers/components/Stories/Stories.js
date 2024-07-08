@@ -75,7 +75,9 @@ const mock = [
   },
 ];
 
-const Stories = () => {
+const Stories = (data) => {
+  const info = data.data;
+  const { titulo, empresas } = info;
   const theme = useTheme();
   const { mode } = theme.palette;
 
@@ -99,13 +101,11 @@ const Stories = () => {
           variant={'h3'}
           align={'center'}
         >
-          See how we are helping teams
-          <br />
-          and businesses
+          {titulo}
         </Box>
       </Box>
       <Grid container spacing={4}>
-        {mock.map((item, i) => (
+        {empresas.map((item, i) => (
           <Grid item xs={12} sm={6} md={4} key={i}>
             <Box
               component={'a'}
@@ -130,8 +130,8 @@ const Stories = () => {
                 flexDirection={'column'}
               >
                 <CardMedia
-                  image={item.media}
-                  title={item.title}
+                  image={`http://localhost:1337${item.imagen.url}`}
+                  title={item.descripcion}
                   sx={{
                     height: 240,
                   }}
@@ -142,7 +142,7 @@ const Stories = () => {
                       component="img"
                       height={1}
                       width={1}
-                      src={item.companyLogo}
+                      src={`http://localhost:1337${item.logo.url}`}
                       alt="..."
                       sx={{
                         filter: mode === 'dark' ? 'contrast(0)' : 'none',
@@ -154,7 +154,7 @@ const Stories = () => {
                     variant={'body2'}
                     color="textSecondary"
                   >
-                    {item.description}
+                    {item.descripcion}
                   </Typography>
                 </Box>
                 <Box flexGrow={1} />

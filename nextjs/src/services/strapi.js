@@ -70,6 +70,28 @@ export const getWebBasicData = async () => {
   }
 }
 
+export const getCustomersData = async () => {
+  try {
+    const response = await axios.get('http://localhost:1337/api/customer-storie?populate[PageContent][populate][iconos][fields][0]=url&populate[PageContent][populate][iconos][fields][1]=alternativeText&populate[PageContent][populate][CTO][pupulate]=true&populate[PageContent][populate][icono][fields][0]=url&populate[PageContent][populate][icono][fields][1]=alternativeText&populate[PageContent][populate][empresas][populate][imagen][fields][0]=url&populate[PageContent][populate][empresas][populate][imagen][fields][1]=alternativeText&populate[PageContent][populate][empresas][populate][logo][fields][0]=url&populate[PageContent][populate][empresas][populate][logo][fields][1]=alternativeText');
+    const flattenedData = flattenAttributes(response.data);
+    return flattenedData;
+  } catch (error) {
+    console.error('Error fetching customers data:', error);
+    throw error;
+  }
+
+}
+
+export const getAboutStartupData = async () => {
+  try {
+    const response = await axios.get('http://localhost:1337/api/about-startup?populate[PageContent][populate][iconos][fields][0]=url&populate[PageContent][populate][iconos][fields][1]=alternativeText&populate[PageContent][populate][galeria][fields][0]=url&populate[PageContent][populate][galeria][fields][1]=alternativeText&populate[PageContent][populate][numeros][populate]=true&populate[PageContent][populate][card][populate][avatar][fields][0]=url&populate[PageContent][populate][card][populate][avatar][fields][1]=alternativeText');
+    const flattenedData = flattenAttributes(response.data);
+    return flattenedData;
+  } catch (error) {
+    console.error('Error fetching customers data:', error);
+    throw error;
+  }
+}
 const flattenAttributes = (data) => {
   if (
     typeof data !== 'object' ||

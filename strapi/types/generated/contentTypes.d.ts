@@ -788,13 +788,12 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
-export interface ApiAboutAbout extends Schema.SingleType {
-  collectionName: 'abouts';
+export interface ApiAboutStartupAboutStartup extends Schema.SingleType {
+  collectionName: 'about_startups';
   info: {
-    singularName: 'about';
-    pluralName: 'abouts';
-    displayName: 'About';
-    description: '';
+    singularName: 'about-startup';
+    pluralName: 'about-startups';
+    displayName: 'About-startup';
   };
   options: {
     draftAndPublish: true;
@@ -802,26 +801,26 @@ export interface ApiAboutAbout extends Schema.SingleType {
   attributes: {
     PageContent: Attribute.DynamicZone<
       [
-        'about-side.gallery',
-        'about-side.header',
-        'about-side.story',
         'about-side.card-equipo',
         'about-side.equipo',
         'about-side.estadistica',
-        'about-side.numeros'
+        'about-side.gallery',
+        'about-side.header',
+        'about-side.numeros',
+        'about-side.story'
       ]
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::about.about',
+      'api::about-startup.about-startup',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::about.about',
+      'api::about-startup.about-startup',
       'oneToOne',
       'admin::user'
     > &
@@ -1064,7 +1063,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'api::about.about': ApiAboutAbout;
+      'api::about-startup.about-startup': ApiAboutStartupAboutStartup;
       'api::blog.blog': ApiBlogBlog;
       'api::customer-storie.customer-storie': ApiCustomerStorieCustomerStorie;
       'api::enterprise.enterprise': ApiEnterpriseEnterprise;
