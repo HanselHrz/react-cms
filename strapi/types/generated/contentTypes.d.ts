@@ -900,6 +900,28 @@ export interface ApiContacUsPopContacUsPop extends Schema.SingleType {
   };
 }
 
+export interface ApiFaqFaq extends Schema.SingleType {
+  collectionName: 'faqs';
+  info: {
+    singularName: 'faq';
+    pluralName: 'faqs';
+    displayName: 'Faq';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    FAQ: Attribute.DynamicZone<['sections.sections']>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::faq.faq', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::faq.faq', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
 export interface ApiHelpcenterHelpcenter extends Schema.SingleType {
   collectionName: 'helpcenters';
   info: {
@@ -1177,6 +1199,7 @@ declare module '@strapi/types' {
       'api::about.about': ApiAboutAbout;
       'api::blog.blog': ApiBlogBlog;
       'api::contac-us-pop.contac-us-pop': ApiContacUsPopContacUsPop;
+      'api::faq.faq': ApiFaqFaq;
       'api::helpcenter.helpcenter': ApiHelpcenterHelpcenter;
       'api::home.home': ApiHomeHome;
       'api::logistic.logistic': ApiLogisticLogistic;

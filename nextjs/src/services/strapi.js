@@ -87,3 +87,13 @@ export const getHelpCenterData = async () => {
     throw error;
   }
 };
+
+export const getFaqData = async () => {
+  try {
+    const response = await axios.get(`${API_URL}faq?populate[FAQ][populate]=accordion,button`);
+    return response.data.data.attributes.FAQ;
+  } catch (error) {
+    console.error('Error fetching FAQ data:', error);
+    throw error;
+  }
+};
