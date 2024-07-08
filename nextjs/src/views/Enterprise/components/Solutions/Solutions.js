@@ -53,7 +53,10 @@ const mock = [
   },
 ];
 
-const Solutions = () => {
+const Solutions = (data) => {
+  const info = data.data;
+  const { title, description, solutionCard } = info;
+  console.log('Solutions', solutionCard);
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -88,14 +91,6 @@ const Solutions = () => {
           <br />
           Here’s what makes us different.
         </Typography>
-        <Button
-          variant="contained"
-          color="primary"
-          size="large"
-          sx={{ marginTop: 2 }}
-        >
-          View all
-        </Button>
       </Box>
       <Grid container spacing={isMd ? 8 : 4}>
         {mock.map((item, i) => (

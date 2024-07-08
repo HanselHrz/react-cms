@@ -27,7 +27,9 @@ const mock = [
   },
 ];
 
-const Features = () => {
+const Features = (data) => {
+  const info = data.data;
+  const { titulo, descripcion, caracteristicas, imagen} = info;
   const theme = useTheme();
   const { mode } = theme.palette;
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -49,17 +51,15 @@ const Features = () => {
         <Grid item xs={12} md={6} data-aos={isMd ? 'fade-right' : 'fade-up'}>
           <Box marginBottom={4}>
             <Typography variant={'h4'} gutterBottom sx={{ fontWeight: 700 }}>
-              Stay focused on your business. Let us handle the design.
+              {titulo}
             </Typography>
             <Typography component={'p'} color={'text.secondary'}>
-              You have a business to run. Stop worring about cross-browser bugs,
-              designing new pages, keeping your components up to date. Let us do
-              that for you.
+              {descripcion}
             </Typography>
           </Box>
           <Box>
             <Grid container spacing={2}>
-              {mock.map((item, i) => (
+              {caracteristicas.map((item, i) => (
                 <Grid key={i} item xs={12} md={4}>
                   <Typography variant="h4" color={'primary'} gutterBottom>
                     <Box fontWeight={600}>
@@ -71,14 +71,14 @@ const Features = () => {
                       >
                         <CountUp
                           duration={2}
-                          end={viewPortEntered ? item.title : 0}
+                          end={viewPortEntered ? item.titulo : 0}
                           start={0}
-                          suffix={item.suffix}
+                          suffix={item.sufijo}
                         />
                       </VisibilitySensor>
                     </Box>
                   </Typography>
-                  <Typography component="p">{item.subtitle}</Typography>
+                  <Typography component="p">{item.subTitulo}</Typography>
                 </Grid>
               ))}
             </Grid>
@@ -90,9 +90,7 @@ const Features = () => {
               component={'img'}
               loading="lazy"
               src={
-                mode === 'light'
-                  ? 'https://assets.maccarianagency.com/svg/illustrations/illustration1.svg'
-                  : 'https://assets.maccarianagency.com/svg/illustrations/illustration1--dark.svg'
+                `http://localhost:1337${imagen.url}`
               }
               height={{ xs: 'auto', md: 1 }}
               maxHeight={{ xs: 300, md: 1 }}

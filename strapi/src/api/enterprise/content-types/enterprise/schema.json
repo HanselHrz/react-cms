@@ -1,0 +1,30 @@
+{
+  "kind": "singleType",
+  "collectionName": "enterprises",
+  "info": {
+    "singularName": "enterprise",
+    "pluralName": "enterprises",
+    "displayName": "Enterprise"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "PageContent": {
+      "type": "dynamiczone",
+      "components": [
+        "enterprise.button",
+        "enterprise.cards",
+        "enterprise.compatibility-card",
+        "enterprise.compatibility",
+        "enterprise.header",
+        "enterprise.partners",
+        "enterprise.resenas",
+        "enterprise.reviews",
+        "enterprise.solutions",
+        "enterprise.video-section"
+      ]
+    }
+  }
+}

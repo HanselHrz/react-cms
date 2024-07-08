@@ -79,11 +79,14 @@ const mock = [
   },
 ];
 
-const About = () => {
+const About = (data) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
+  const info = data.data;
+  const { titulo, tituloResaltado, descripcion, caracteristicas } = info;
+  console.log('about', titulo, tituloResaltado, descripcion, caracteristicas);
 
   return (
     <Box>
@@ -100,17 +103,16 @@ const About = () => {
             <Box marginBottom={4}>
               <Typography variant={'h4'} gutterBottom sx={{ fontWeight: 700 }}>
                 <Typography color="primary" variant="inherit" component="span">
-                  Develop anything
+                  {titulo}
                 </Typography>{' '}
-                your business needs.
+                {tituloResaltado}
               </Typography>
               <Typography component={'p'} color={'text.secondary'}>
-                Build a beautiful, modern website with flexible, fully
-                customizable, atomic MUI components.
+                {descripcion}
               </Typography>
             </Box>
             <List disablePadding>
-              {mock.map((item, index) => (
+              {caracteristicas.map((item, index) => (
                 <ListItem
                   key={index}
                   disableGutters
@@ -125,13 +127,13 @@ const About = () => {
                       variant={'rounded'}
                       color={theme.palette.primary.dark}
                       bgcolor={`${theme.palette.primary.light}22`}
+                      src={`http://localhost:1337${item.icono.url}`}
                     >
-                      {item.icon}
                     </Box>
                   </ListItemAvatar>
                   <ListItemText
-                    primary={item.title}
-                    secondary={item.subtitle}
+                    primary={item.titulo}
+                    secondary={item.subTitulo}
                   />
                 </ListItem>
               ))}

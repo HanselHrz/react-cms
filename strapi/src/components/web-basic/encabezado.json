@@ -1,0 +1,40 @@
+{
+  "collectionName": "components_web_basic_encabezados",
+  "info": {
+    "displayName": "Encabezado",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "titulo": {
+      "type": "string"
+    },
+    "tituloResaltado": {
+      "type": "string"
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "primerBoton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "enterprise.button"
+    },
+    "segundoBoton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "enterprise.button"
+    },
+    "imagen": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}

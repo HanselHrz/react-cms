@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_web_basic_caracteristicas",
+  "info": {
+    "displayName": "Caracteristicas"
+  },
+  "options": {},
+  "attributes": {
+    "titulo": {
+      "type": "string"
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "caracteristicas": {
+      "displayName": "cardCaracteristica",
+      "type": "component",
+      "repeatable": true,
+      "component": "web-basic.card-caracteristica"
+    },
+    "imagen": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

@@ -47,3 +47,56 @@ export const deleteBlogPostById = async (id) => {
   const response = await axios.delete(`${API_URL}/${id}`);
   return response.data;
 };
+
+export const getEnterpriseData = async () => {
+  try {
+    const response = await axios.get('http://localhost:1337/api/enterprise?populate[PageContent][populate][video][fields][0]=url&populate[PageContent][populate][video][fields][1]=alternativeText&populate[PageContent][populate][primerBoton][populate]=true&populate[PageContent][populate][segundoBoton][populate]=true&populate[PageContent][populate][imagen][fields][0]=url&populate[PageContent][populate][imagen][fields][1]=alternativeText&populate[PageContent][populate][iconos][fields][0]=url&populate[PageContent][populate][iconos][fields][1]=alternativeText&populate[PageContent][populate][card][populate][imagen][fields][0]=url&populate[PageContent][populate][card][populate][imagen][fields][1]=alternativeText&populate[PageContent][populate][navegadores][populate][icono][fields][0]=url&populate[PageContent][populate][navegadores][populate][icono][fields][1]=alternativeText&populate[PageContent][populate][resena][populate][avatar][fields][0]=url&populate[PageContent][populate][resena][populate][avatar][fields][1]=alternativeText');
+    const flattenedData = flattenAttributes(response.data);
+    return flattenedData;
+  } catch (error) {
+    console.error('Error fetching enterprise data:', error);
+    throw error;
+  }
+}
+
+export const getWebBasicData = async () => {
+  try{
+    const response = await axios.get('http://localhost:1337/api/web-basic?populate[PageContent][populate][primerBoton][populate]=true&populate[PageContent][populate][segundoBoton][populate]=true&populate[PageContent][populate][imagen][fields][0]=url&populate[PageContent][populate][imagen][fields][1]=alternativeText&populate[PageContent][populate][card][populate][icono][fields][0]=url&populate[PageContent][populate][card][populate][icono][fields][1]=alternativeText&populate[PageContent][populate][iconos][fields][0]=url&populate[PageContent][populate][iconos][fields][1]=alternativeText&populate[PageContent][populate][icono][fields][0]=url&populate[PageContent][populate][icono][fields][1]=alternativeText&populate[PageContent][populate][caracteristicas][populate][icono][fields][0]=url&populate[PageContent][populate][caracteristicas][populate][icono][fields][1]=alternativeText&populate[PageContent][populate][resena][populate][avatar][fields][0]=url&populate[PageContent][populate][resena][populate][avatar][fields][1]=alternativeText&populate[PageContent][populate][planes][populate][caracteristicas][populate]=true&populate[PageContent][populate][preguntas][populate]=true');
+    const flattenedData = flattenAttributes(response.data);
+    return flattenedData;
+  } catch (error) {
+    console.error('Error fetching web basic data:', error);
+    throw error;
+  }
+}
+
+const flattenAttributes = (data) => {
+  if (
+    typeof data !== 'object' ||
+    data === null ||
+    data instanceof Date ||
+    typeof data === 'function'
+  ){
+    return data;
+  }
+
+  if (Array.isArray(data)) {
+    return data.map((item) => flattenAttributes(item));
+  }
+
+  // Initialize an object with an index signature for the flattened structure
+  const flattenedData = {};
+  // Iterate over each key in the object
+  for (const key in data) {
+    if(!data.hasOwnProperty(key)) {
+      continue;
+    } 
+    if ((key === "attributes" || key === "data") && typeof data[key] === "object") {
+      Object.assign(flattenedData, flattenAttributes(data[key]));
+    } else {
+      flattenedData[key] = flattenAttributes(data[key]);
+    }
+  }
+
+  return flattenedData;
+}

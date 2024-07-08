@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_about_side_equipos",
+  "info": {
+    "displayName": "Equipo",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "card": {
+      "type": "component",
+      "repeatable": true,
+      "component": "about-side.card-equipo"
+    }
+  }
+}

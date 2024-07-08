@@ -7,7 +7,9 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 
-const Hero = () => {
+const Hero = (data) => {
+  const info = data.data;
+  const { titulo, tituloResaltado, descripcion, primerBoton, segundoBoton, imagen } = info;
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -25,7 +27,7 @@ const Hero = () => {
                 fontWeight: 700,
               }}
             >
-              Develop anything your{' '}
+             {titulo}{' '}
               <Typography
                 component={'span'}
                 variant={'inherit'}
@@ -37,7 +39,7 @@ const Hero = () => {
                   )} 0%)`,
                 }}
               >
-                business needs.
+                {tituloResaltado}
               </Typography>
             </Typography>
           </Box>
@@ -48,8 +50,7 @@ const Hero = () => {
               color="text.secondary"
               sx={{ fontWeight: 400 }}
             >
-              theFront will make your product look modern and professional while
-              saving you precious time.
+              {descripcion}
             </Typography>
           </Box>
           <Box
@@ -63,10 +64,10 @@ const Hero = () => {
               color="primary"
               size="large"
               fullWidth={isMd ? false : true}
-              href={'https://mui.com/store/items/the-front-landing-page/'}
+              href={primerBoton.link}
               target={'_blank'}
             >
-              Purchase now
+              {primerBoton.titulo}
             </Button>
             <Box
               marginTop={{ xs: 2, sm: 0 }}
@@ -75,14 +76,14 @@ const Hero = () => {
             >
               <Button
                 component={'a'}
-                href={'https://thefront.maccarianagency.com/docs/introduction'}
+                href={segundoBoton.link}
                 target={'blank'}
                 variant="outlined"
                 color="primary"
                 size="large"
                 fullWidth={isMd ? false : true}
               >
-                View documentation
+                {segundoBoton.titulo}
               </Button>
             </Box>
           </Box>
@@ -100,7 +101,7 @@ const Hero = () => {
             <Box
               component={'img'}
               src={
-                'https://assets.maccarianagency.com/svg/illustrations/drawkit-illustration4.svg'
+                `http://localhost:1337${imagen.url}`
               }
               width={1}
               height={1}

@@ -6,7 +6,9 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-const Hero = () => {
+const Hero = (data) => {
+  const info = data.data;
+  const { titulo, subTitulo, primerBoton, segundoBoton } = info;
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -22,9 +24,7 @@ const Hero = () => {
             fontWeight: 700,
           }}
         >
-          Turn your ideas
-          <br />
-          into{' '}
+          {titulo}{' '}
           <Typography
             color={'primary'}
             component={'span'}
@@ -47,8 +47,7 @@ const Hero = () => {
           color="text.secondary"
           sx={{ fontWeight: 400 }}
         >
-          theFront will make your product look modern and professional while
-          saving you precious time.
+          {subTitulo}
         </Typography>
       </Box>
       <Box
@@ -62,10 +61,10 @@ const Hero = () => {
           color="primary"
           size="large"
           fullWidth={isMd ? false : true}
-          href={'https://mui.com/store/items/the-front-landing-page/'}
+          href={primerBoton.link || '/#'}
           target={'_blank'}
         >
-          Purchase now
+          {primerBoton.titulo}
         </Button>
         <Box
           marginTop={{ xs: 2, sm: 0 }}
@@ -74,14 +73,14 @@ const Hero = () => {
         >
           <Button
             component={'a'}
-            href={'https://thefront.maccarianagency.com/docs/introduction'}
+            href={segundoBoton.link || '/#'}
             target={'blank'}
             variant="outlined"
             color="primary"
             size="large"
             fullWidth={isMd ? false : true}
           >
-            View documentation
+            {segundoBoton.titulo} 
           </Button>
         </Box>
       </Box>

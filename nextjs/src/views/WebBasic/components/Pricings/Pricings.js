@@ -45,7 +45,9 @@ const mock = [
   },
 ];
 
-const Pricing = () => {
+const Pricing = (data) => {
+  const info = data.data;
+  const { titulo, subTitulo, planes} = info;
   const theme = useTheme();
 
   return (
@@ -68,7 +70,7 @@ const Pricing = () => {
           gutterBottom
           sx={{ fontWeight: 700 }}
         >
-          Flexible and transparent pricing
+          {titulo}
         </Typography>
         <Typography
           variant={'h6'}
@@ -76,11 +78,11 @@ const Pricing = () => {
           color={'text.secondary'}
           align={'center'}
         >
-          Whatever your status, our offers evolve according to your needs.
+         {subTitulo}
         </Typography>
       </Box>
       <Grid container spacing={4}>
-        {mock.map((item, i) => (
+        {planes.map((item, i) => (
           <Grid item xs={12} md={4} key={i}>
             <Box
               component={Card}
@@ -101,13 +103,13 @@ const Pricing = () => {
                 >
                   <Typography variant={'h4'}>
                     <Box component={'span'} fontWeight={600}>
-                      {item.title}
+                      {item.titulo}
                     </Box>
                   </Typography>
                   <Box display={'flex'} alignItems={'baseline'}>
                     <Typography variant={'h4'} color={'primary'}>
                       <Box component={'span'} fontWeight={600}>
-                        {item.price}
+                        {item.precio}
                       </Box>
                     </Typography>
                     <Typography variant={'subtitle2'} color={'text.secondary'}>
@@ -116,7 +118,7 @@ const Pricing = () => {
                   </Box>
                 </Box>
                 <Grid container spacing={1}>
-                  {item.features.map((feature, j) => (
+                  {item.caracteristicas.map((feature, j) => (
                     <Grid item xs={12} key={j}>
                       <Box
                         component={ListItem}
@@ -150,7 +152,7 @@ const Pricing = () => {
                             </svg>
                           </Box>
                         </Box>
-                        <ListItemText primary={feature} />
+                        <ListItemText primary={feature.caracteristica} />
                       </Box>
                     </Grid>
                   ))}

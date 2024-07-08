@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_web_basic_faqs",
+  "info": {
+    "displayName": "FAQ"
+  },
+  "options": {},
+  "attributes": {
+    "preguntas": {
+      "displayName": "cardPregunta",
+      "type": "component",
+      "repeatable": true,
+      "component": "web-basic.card-pregunta"
+    }
+  }
+}

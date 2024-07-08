@@ -4,19 +4,10 @@ import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-const mock = [
-  'https://assets.maccarianagency.com/svg/logos/airbnb-original.svg',
-  'https://assets.maccarianagency.com/svg/logos/amazon-original.svg',
-  'https://assets.maccarianagency.com/svg/logos/fitbit-original.svg',
-  'https://assets.maccarianagency.com/svg/logos/netflix-original.svg',
-  'https://assets.maccarianagency.com/svg/logos/google-original.svg',
-  'https://assets.maccarianagency.com/svg/logos/paypal-original.svg',
-  'https://assets.maccarianagency.com/svg/logos/hubspot-original.svg',
-  'https://assets.maccarianagency.com/svg/logos/mapbox-original.svg',
-  'https://assets.maccarianagency.com/svg/logos/slack-original.svg',
-];
-
-const Partners = () => {
+const Partners = (data) => {
+  const arreglo = data.data.iconos;
+  const iconsArray = Array.isArray(arreglo) ? arreglo : Object.values(arreglo);
+  console.log(iconsArray);
   const theme = useTheme();
   const isXs = useMediaQuery(theme.breakpoints.up('xs'), {
     defaultMatches: true,
@@ -59,13 +50,13 @@ const Partners = () => {
   return (
     <Box>
       <Slider {...sliderOpts}>
-        {mock.map((item, i) => (
+        {iconsArray.map((item, i) => (
           <Box maxWidth={120} key={i} marginX={3}>
             <Box
               component="img"
               height={1}
               width={1}
-              src={item}
+              src= {`http://localhost:1337${item.url}`}
               alt="..."
               sx={{
                 filter:

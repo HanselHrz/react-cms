@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_about_side_numeros",
+  "info": {
+    "displayName": "numeros",
+    "icon": "bold",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "numeros": {
+      "displayName": "estadistica",
+      "type": "component",
+      "repeatable": true,
+      "component": "about-side.estadistica"
+    }
+  }
+}

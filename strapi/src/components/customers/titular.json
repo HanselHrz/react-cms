@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_customers_titulars",
+  "info": {
+    "displayName": "Titular"
+  },
+  "options": {},
+  "attributes": {
+    "titulo": {
+      "type": "string"
+    },
+    "subTitulo": {
+      "type": "string"
+    }
+  }
+}

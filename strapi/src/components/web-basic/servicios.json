@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_web_basic_servicios",
+  "info": {
+    "displayName": "Servicios"
+  },
+  "options": {},
+  "attributes": {
+    "card": {
+      "displayName": "cardServicios",
+      "type": "component",
+      "repeatable": true,
+      "component": "web-basic.card-servicios"
+    }
+  }
+}

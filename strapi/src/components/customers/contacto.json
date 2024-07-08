@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_customers_contactos",
+  "info": {
+    "displayName": "Contacto"
+  },
+  "options": {},
+  "attributes": {
+    "titulo": {
+      "type": "string"
+    },
+    "subTitulo": {
+      "type": "text"
+    },
+    "CTO": {
+      "type": "component",
+      "repeatable": false,
+      "component": "enterprise.button"
+    }
+  }
+}

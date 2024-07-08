@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_web_basic_acercas",
+  "info": {
+    "displayName": "Acerca",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "tituloResaltado": {
+      "type": "string"
+    },
+    "titulo": {
+      "type": "string"
+    },
+    "caracteristicas": {
+      "type": "component",
+      "repeatable": true,
+      "component": "web-basic.card-servicios"
+    },
+    "descripcion": {
+      "type": "text"
+    }
+  }
+}

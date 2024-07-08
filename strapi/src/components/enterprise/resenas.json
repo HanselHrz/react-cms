@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_enterprise_resenas",
+  "info": {
+    "displayName": "Reseñas",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "resena": {
+      "type": "component",
+      "repeatable": true,
+      "component": "enterprise.reviews"
+    }
+  }
+}

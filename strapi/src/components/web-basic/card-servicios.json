@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_web_basic_card_servicios",
+  "info": {
+    "displayName": "cardServicios"
+  },
+  "options": {},
+  "attributes": {
+    "titulo": {
+      "type": "string"
+    },
+    "subTitulo": {
+      "type": "text"
+    },
+    "icono": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

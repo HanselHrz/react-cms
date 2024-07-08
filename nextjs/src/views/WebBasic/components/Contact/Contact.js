@@ -30,7 +30,9 @@ const validationSchema = yup.object({
     .required('Email is required'),
 });
 
-const Contact = () => {
+const Contact = (data) => {
+  const info = data.data;
+  const { titulo, tituloResaltado, descripcion, caracteristicas } = info;
   const theme = useTheme();
 
   const initialValues = {
@@ -166,31 +168,21 @@ const Contact = () => {
           <Box>
             <Box marginBottom={2}>
               <Typography variant={'h4'} sx={{ fontWeight: 700 }} gutterBottom>
-                The most useful resource ever created for{' '}
+               {titulo}{' '}
                 <Typography
                   color={'primary'}
                   component={'span'}
                   variant={'inherit'}
                 >
-                  startups
+                  {tituloResaltado}
                 </Typography>
               </Typography>
               <Typography color="text.secondary">
-                Using theFront to build your site means never worrying about
-                designing another page or cross browser compatibility. Our
-                ever-growing library of components and pre-designed layouts will
-                make your life easier.
+                {descripcion}
               </Typography>
             </Box>
             <Grid container spacing={1}>
-              {[
-                'All features',
-                'Email support',
-                'Lifetime updates',
-                'Tons of assets',
-                'Tech support',
-                'Integration ready',
-              ].map((item, i) => (
+              {caracteristicas.map((item, i) => (
                 <Grid item xs={12} sm={6} key={i}>
                   <Box
                     component={ListItem}
@@ -224,7 +216,7 @@ const Contact = () => {
                         </svg>
                       </Box>
                     </Box>
-                    <ListItemText primary={item} />
+                    <ListItemText primary={item.caracteristica} />
                   </Box>
                 </Grid>
               ))}

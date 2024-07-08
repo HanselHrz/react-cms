@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_web_basic_card_caracteristicas",
+  "info": {
+    "displayName": "cardCaracteristica"
+  },
+  "options": {},
+  "attributes": {
+    "titulo": {
+      "type": "string"
+    },
+    "subTitulo": {
+      "type": "string"
+    },
+    "sufijo": {
+      "type": "string"
+    }
+  }
+}

@@ -35,7 +35,8 @@ const mock = [
   },
 ];
 
-const Reviews = () => {
+const Reviews = (data) => {
+  const info = data.data.resena;
   const theme = useTheme();
 
   const sliderOpts = {
@@ -72,7 +73,7 @@ const Reviews = () => {
       </Box>
       <Box maxWidth={800} width={1}>
         <Slider {...sliderOpts}>
-          {mock.map((item, i) => (
+          {info.map((item, i) => (
             <Box key={i}>
               <Box
                 width={1}
@@ -92,19 +93,19 @@ const Reviews = () => {
                   }}
                 >
                   <Typography align={'center'} variant={'h6'}>
-                    {item.feedback}
+                    {item.comentario}
                   </Typography>
                 </CardContent>
                 <Box flexGrow={1} />
                 <CardActions sx={{ paddingBottom: 2 }}>
                   <ListItem component="div" disableGutters sx={{ padding: 0 }}>
                     <ListItemAvatar>
-                      <Avatar src={item.avatar} />
+                      <Avatar src={`http://localhost:1337${item.avatar.url}`} />
                     </ListItemAvatar>
                     <ListItemText
                       sx={{ margin: 0 }}
-                      primary={item.name}
-                      secondary={item.title}
+                      primary={item.nombre}
+                      secondary={item.titulo}
                     />
                   </ListItem>
                 </CardActions>

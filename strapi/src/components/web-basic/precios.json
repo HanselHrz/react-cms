@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_web_basic_precios",
+  "info": {
+    "displayName": "Precios",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "titulo": {
+      "type": "string"
+    },
+    "subTitulo": {
+      "type": "string"
+    },
+    "planes": {
+      "displayName": "cardPlanes",
+      "type": "component",
+      "repeatable": true,
+      "component": "web-basic.card-planes"
+    }
+  }
+}

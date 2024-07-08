@@ -1,0 +1,26 @@
+{
+  "kind": "singleType",
+  "collectionName": "customer_stories",
+  "info": {
+    "singularName": "customer-storie",
+    "pluralName": "customer-stories",
+    "displayName": "Customer-storie",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "PageContent": {
+      "type": "dynamiczone",
+      "components": [
+        "customers.card-relatos",
+        "customers.contacto",
+        "customers.relatos",
+        "customers.titular",
+        "web-basic.socios-iconos"
+      ]
+    }
+  }
+}

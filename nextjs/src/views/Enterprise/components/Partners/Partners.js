@@ -14,7 +14,11 @@ const mock = [
   'https://assets.maccarianagency.com/svg/logos/paypal-original.svg',
 ];
 
-const Partners = () => {
+const Partners = (data) => {
+  const info = data.data;
+  const { titulo, subTitulo, iconos } = info;
+  console.log('partners', info);
+  const iconsArray = Array.isArray(iconos) ? iconos : Object.values(iconos);
   const theme = useTheme();
   return (
     <Box>
@@ -22,25 +26,23 @@ const Partners = () => {
         <Grid item xs={12} md={6}>
           <Box>
             <Typography variant={'h4'} gutterBottom sx={{ fontWeight: 700 }}>
-              Trusted by you favorite companies
+              {titulo}
             </Typography>
             <Typography variant={'h6'} component={'p'} color={'text.secondary'}>
-              We are registered as a distributor with AMFI,
-              <br />
-              investment advisor with SEBI and platform partners with BSE.
+              {subTitulo}
             </Typography>
           </Box>
         </Grid>
         <Grid item xs={12} md={6}>
           <Box>
             <Box display="flex" flexWrap="wrap" justifyContent={'flex-start'}>
-              {mock.map((item, i) => (
+              {iconsArray.map((item, i) => (
                 <Box maxWidth={90} marginTop={2} marginRight={4} key={i}>
                   <Box
                     component="img"
                     height={1}
                     width={1}
-                    src={item}
+                    src={`http://localhost:1337${item.url}`}
                     alt="..."
                     sx={{
                       filter:

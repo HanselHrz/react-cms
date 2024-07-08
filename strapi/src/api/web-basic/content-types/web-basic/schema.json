@@ -4,18 +4,34 @@
   "info": {
     "singularName": "web-basic",
     "pluralName": "web-basics",
-    "displayName": "Web basic"
+    "displayName": "Web-basic",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "title": {
-      "type": "string"
-    },
-    "Content": {
-      "type": "richtext"
+    "PageContent": {
+      "type": "dynamiczone",
+      "components": [
+        "web-basic.acerca",
+        "web-basic.caracteristicas",
+        "web-basic.card-caracteristica",
+        "web-basic.card-pregunta",
+        "web-basic.card-servicios",
+        "web-basic.contacto",
+        "web-basic.encabezado",
+        "web-basic.faq",
+        "web-basic.icono",
+        "web-basic.lista",
+        "web-basic.servicios",
+        "web-basic.socios-iconos",
+        "web-basic.usuarios",
+        "enterprise.resenas",
+        "web-basic.card-planes",
+        "web-basic.precios"
+      ]
     }
   }
 }

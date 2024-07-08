@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_web_basic_contactos",
+  "info": {
+    "displayName": "Contacto",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "titulo": {
+      "type": "string"
+    },
+    "tituloResaltado": {
+      "type": "string"
+    },
+    "caracteristicas": {
+      "displayName": "Lista",
+      "type": "component",
+      "repeatable": true,
+      "component": "web-basic.lista"
+    },
+    "descripcion": {
+      "type": "text"
+    }
+  }
+}

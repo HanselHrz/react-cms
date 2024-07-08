@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_web_basic_card_planes",
+  "info": {
+    "displayName": "cardPlanes"
+  },
+  "options": {},
+  "attributes": {
+    "titulo": {
+      "type": "string"
+    },
+    "precio": {
+      "type": "string"
+    },
+    "caracteristicas": {
+      "type": "component",
+      "repeatable": true,
+      "component": "web-basic.lista"
+    },
+    "resaltar": {
+      "type": "boolean"
+    }
+  }
+}

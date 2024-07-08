@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_enterprise_compatibilities",
+  "info": {
+    "displayName": "Compatibilidad",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "titulo": {
+      "type": "string"
+    },
+    "navegadores": {
+      "displayName": "compatibilityCard",
+      "type": "component",
+      "repeatable": true,
+      "component": "enterprise.compatibility-card"
+    }
+  }
+}

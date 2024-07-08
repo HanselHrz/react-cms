@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_enterprise_reviews",
+  "info": {
+    "displayName": "CardReseña",
+    "icon": "envelop",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "titulo": {
+      "type": "string"
+    },
+    "comentario": {
+      "type": "text"
+    },
+    "nombre": {
+      "type": "string"
+    },
+    "avatar": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}

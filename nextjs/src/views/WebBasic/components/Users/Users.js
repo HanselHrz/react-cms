@@ -34,7 +34,12 @@ const mock = [
   },
 ];
 
-const Users = () => {
+const Users = (data) => {
+  const info = data.data;
+  const { titulo, subTitulo, descripcion, iconos} = info;
+  const iconsArray = Array.isArray(iconos) ? iconos : Object.values(iconos);
+  console.log('users', titulo, subTitulo, descripcion, iconos);
+  console.log(info)
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -52,7 +57,7 @@ const Users = () => {
           color={'secondary'}
           align={'center'}
         >
-          BUILD UP A COMMUNITY
+          {titulo}
         </Typography>
         <Typography
           variant="h4"
@@ -63,7 +68,7 @@ const Users = () => {
             fontWeight: 700,
           }}
         >
-          Join the biggest community of users
+          {subTitulo}
         </Typography>
         <Typography
           variant="h6"
@@ -71,10 +76,7 @@ const Users = () => {
           color={'text.secondary'}
           data-aos={'fade-up'}
         >
-          For entrepreneurs, startups and freelancers.
-          <br />
-          Build a beautiful, modern website with flexible, fully customizable,
-          atomic MUI components.
+          {descripcion}
         </Typography>
         <Box
           display="flex"
@@ -129,7 +131,7 @@ const Users = () => {
         }}
         data-aos="fade-up"
       >
-        {mock.map((item, index) => (
+        {iconsArray.map((item, index) => (
           <Grid
             item
             container
@@ -139,7 +141,7 @@ const Users = () => {
           >
             <Grid item xs={6}>
               <Avatar
-                src={item.logo}
+                src={`http://localhost:1337${item.url}`}
                 sx={{
                   width: { xs: 60, md: 80 },
                   height: { xs: 60, md: 80 },

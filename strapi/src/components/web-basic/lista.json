@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_web_basic_listas",
+  "info": {
+    "displayName": "Lista"
+  },
+  "options": {},
+  "attributes": {
+    "caracteristica": {
+      "type": "string"
+    }
+  }
+}

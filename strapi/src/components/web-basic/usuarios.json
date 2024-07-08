@@ -1,0 +1,39 @@
+{
+  "collectionName": "components_web_basic_usuarios",
+  "info": {
+    "displayName": "Usuarios",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "titulo": {
+      "type": "string"
+    },
+    "subTitulo": {
+      "type": "string"
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "primerBoton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "enterprise.button"
+    },
+    "segundoBoton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "enterprise.button"
+    },
+    "iconos": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    }
+  }
+}

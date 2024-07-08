@@ -362,122 +362,6 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiBlogBlog extends Schema.CollectionType {
-  collectionName: 'blogs';
-  info: {
-    singularName: 'blog';
-    pluralName: 'blogs';
-    displayName: 'Blog';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    title: Attribute.String;
-    content: Attribute.RichText;
-    author: Attribute.String;
-    category: Attribute.String;
-    publishedDate: Attribute.Date;
-    description: Attribute.Text &
-      Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
-    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios', true>;
-    tags: Attribute.JSON &
-      Attribute.CustomField<
-        'plugin::multi-select.multi-select',
-        ['UX', 'UI', 'Design', 'News', 'Themes', 'Money']
-      >;
-    reviews: Attribute.Relation<
-      'api::blog.blog',
-      'oneToMany',
-      'api::review.review'
-    >;
-    user: Attribute.Relation<
-      'api::blog.blog',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
-    avatar: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'api::blog.blog', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<'api::blog.blog', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-  };
-}
-
-export interface ApiReviewReview extends Schema.CollectionType {
-  collectionName: 'reviews';
-  info: {
-    singularName: 'review';
-    pluralName: 'reviews';
-    displayName: 'Review';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    review: Attribute.Text;
-    reviewer: Attribute.String;
-    blog: Attribute.Relation<
-      'api::review.review',
-      'manyToOne',
-      'api::blog.blog'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::review.review',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::review.review',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiWebBasicWebBasic extends Schema.SingleType {
-  collectionName: 'web_basics';
-  info: {
-    singularName: 'web-basic';
-    pluralName: 'web-basics';
-    displayName: 'Web basic';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    title: Attribute.String;
-    Content: Attribute.RichText;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::web-basic.web-basic',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::web-basic.web-basic',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -904,6 +788,264 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiAboutAbout extends Schema.SingleType {
+  collectionName: 'abouts';
+  info: {
+    singularName: 'about';
+    pluralName: 'abouts';
+    displayName: 'About';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    PageContent: Attribute.DynamicZone<
+      [
+        'about-side.gallery',
+        'about-side.header',
+        'about-side.story',
+        'about-side.card-equipo',
+        'about-side.equipo',
+        'about-side.estadistica',
+        'about-side.numeros'
+      ]
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::about.about',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::about.about',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiBlogBlog extends Schema.CollectionType {
+  collectionName: 'blogs';
+  info: {
+    singularName: 'blog';
+    pluralName: 'blogs';
+    displayName: 'Blog';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    content: Attribute.RichText;
+    author: Attribute.String;
+    category: Attribute.String;
+    publishedDate: Attribute.Date;
+    description: Attribute.Text &
+      Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios', true>;
+    tags: Attribute.JSON &
+      Attribute.CustomField<
+        'plugin::multi-select.multi-select',
+        ['UX', 'UI', 'Design', 'News', 'Themes', 'Money']
+      >;
+    reviews: Attribute.Relation<
+      'api::blog.blog',
+      'oneToMany',
+      'api::review.review'
+    >;
+    user: Attribute.Relation<
+      'api::blog.blog',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    avatar: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::blog.blog', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::blog.blog', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCustomerStorieCustomerStorie extends Schema.SingleType {
+  collectionName: 'customer_stories';
+  info: {
+    singularName: 'customer-storie';
+    pluralName: 'customer-stories';
+    displayName: 'Customer-storie';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    PageContent: Attribute.DynamicZone<
+      [
+        'customers.card-relatos',
+        'customers.contacto',
+        'customers.relatos',
+        'customers.titular',
+        'web-basic.socios-iconos'
+      ]
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::customer-storie.customer-storie',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::customer-storie.customer-storie',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiEnterpriseEnterprise extends Schema.SingleType {
+  collectionName: 'enterprises';
+  info: {
+    singularName: 'enterprise';
+    pluralName: 'enterprises';
+    displayName: 'Enterprise';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    PageContent: Attribute.DynamicZone<
+      [
+        'enterprise.button',
+        'enterprise.cards',
+        'enterprise.compatibility-card',
+        'enterprise.compatibility',
+        'enterprise.header',
+        'enterprise.partners',
+        'enterprise.resenas',
+        'enterprise.reviews',
+        'enterprise.solutions',
+        'enterprise.video-section'
+      ]
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::enterprise.enterprise',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::enterprise.enterprise',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiReviewReview extends Schema.CollectionType {
+  collectionName: 'reviews';
+  info: {
+    singularName: 'review';
+    pluralName: 'reviews';
+    displayName: 'Review';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    review: Attribute.Text;
+    reviewer: Attribute.String;
+    blog: Attribute.Relation<
+      'api::review.review',
+      'manyToOne',
+      'api::blog.blog'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::review.review',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::review.review',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiWebBasicWebBasic extends Schema.SingleType {
+  collectionName: 'web_basics';
+  info: {
+    singularName: 'web-basic';
+    pluralName: 'web-basics';
+    displayName: 'Web-basic';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    PageContent: Attribute.DynamicZone<
+      [
+        'web-basic.acerca',
+        'web-basic.caracteristicas',
+        'web-basic.card-caracteristica',
+        'web-basic.card-pregunta',
+        'web-basic.card-servicios',
+        'web-basic.contacto',
+        'web-basic.encabezado',
+        'web-basic.faq',
+        'web-basic.icono',
+        'web-basic.lista',
+        'web-basic.servicios',
+        'web-basic.socios-iconos',
+        'web-basic.usuarios',
+        'enterprise.resenas',
+        'web-basic.card-planes',
+        'web-basic.precios'
+      ]
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::web-basic.web-basic',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::web-basic.web-basic',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -914,9 +1056,6 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::blog.blog': ApiBlogBlog;
-      'api::review.review': ApiReviewReview;
-      'api::web-basic.web-basic': ApiWebBasicWebBasic;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
@@ -925,6 +1064,12 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::about.about': ApiAboutAbout;
+      'api::blog.blog': ApiBlogBlog;
+      'api::customer-storie.customer-storie': ApiCustomerStorieCustomerStorie;
+      'api::enterprise.enterprise': ApiEnterpriseEnterprise;
+      'api::review.review': ApiReviewReview;
+      'api::web-basic.web-basic': ApiWebBasicWebBasic;
     }
   }
 }

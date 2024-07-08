@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_enterprise_header_s",
+  "info": {
+    "displayName": "Encabezado",
+    "icon": "bold",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "titulo": {
+      "type": "string"
+    },
+    "subTitulo": {
+      "type": "text"
+    },
+    "primerBoton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "enterprise.button"
+    },
+    "segundoBoton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "enterprise.button"
+    }
+  }
+}

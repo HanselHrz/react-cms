@@ -1,0 +1,38 @@
+{
+  "collectionName": "components_about_side_card_equipos",
+  "info": {
+    "displayName": "cardEquipo",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "avatar": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "nombre": {
+      "type": "string"
+    },
+    "titulo": {
+      "type": "string"
+    },
+    "descripcion": {
+      "type": "string"
+    },
+    "facebook": {
+      "type": "string"
+    },
+    "x": {
+      "type": "string"
+    },
+    "github": {
+      "type": "string"
+    }
+  }
+}

@@ -54,7 +54,8 @@ const mock = [
   },
 ];
 
-const Reviews = () => {
+const Reviews = (data) => {
+  const info = data.data.resena;
   const theme = useTheme();
 
   return (
@@ -98,7 +99,7 @@ const Reviews = () => {
         </Typography>
       </Box>
       <Grid container spacing={2}>
-        {mock.map((item, i) => (
+        {info.map((item, i) => (
           <Grid
             item
             xs={12}
@@ -128,16 +129,16 @@ const Reviews = () => {
               <Box marginBottom={2}>
                 <ListItem component="div" disableGutters sx={{ padding: 0 }}>
                   <ListItemAvatar>
-                    <Avatar src={item.avatar} />
+                    <Avatar src={`http://localhost:1337${item.avatar.url}`} />
                   </ListItemAvatar>
                   <ListItemText
                     sx={{ margin: 0 }}
-                    primary={item.name}
-                    secondary={item.title}
+                    primary={item.nombre}
+                    secondary={item.titulo}
                   />
                 </ListItem>
               </Box>
-              <Typography color="text.secondary">{item.feedback}</Typography>
+              <Typography color="text.secondary">{item.comentario}</Typography>
             </Box>
           </Grid>
         ))}

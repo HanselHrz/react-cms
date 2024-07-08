@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_web_basic_iconos",
+  "info": {
+    "displayName": "icono",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "icono": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}

@@ -47,13 +47,15 @@ const mock = [
   },
 ];
 
-const Faq = () => {
+const Faq = (data) => {
+  const info = data.data.preguntas;
+  console.log(info);
   const theme = useTheme();
 
   return (
     <Box>
       <Grid container spacing={4}>
-        {mock.map((item, i) => (
+        {info.map((item, i) => (
           <Grid
             item
             xs={12}
@@ -85,10 +87,10 @@ const Faq = () => {
                   </Typography>
                 </Box>
                 <Typography variant={'h6'} gutterBottom fontWeight={500}>
-                  {item.title}
+                  {item.titulo}
                 </Typography>
               </Box>
-              <Typography color="text.secondary">{item.subtitle}</Typography>
+              <Typography color="text.secondary">{item.subTitulo}</Typography>
             </Box>
           </Grid>
         ))}

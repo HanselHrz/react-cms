@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_about_side_galleries",
+  "info": {
+    "displayName": "Galeria",
+    "icon": "picture",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "galeria": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}

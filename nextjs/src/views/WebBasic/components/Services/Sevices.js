@@ -74,12 +74,14 @@ const mock = [
   },
 ];
 
-const Services = () => {
+const Services = (data) => {
+  const info = data.data.card;
+  console.log(info);
   const theme = useTheme();
   return (
     <Box>
       <Grid container spacing={2}>
-        {mock.map((item, i) => (
+        {info.map((item, i) => (
           <Grid item xs={12} md={4} key={i}>
             <Box
               width={1}
@@ -101,8 +103,10 @@ const Services = () => {
                   marginBottom={2}
                   bgcolor={alpha(theme.palette.primary.main, 0.1)}
                   color={theme.palette.primary.main}
+                  src={
+                    `http://localhost:1337${item.icono.url}`
+                  }
                 >
-                  {item.icon}
                 </Box>
                 <Typography
                   variant={'h6'}
@@ -110,10 +114,10 @@ const Services = () => {
                   sx={{ fontWeight: 500 }}
                   align={'center'}
                 >
-                  {item.title}
+                  {item.titulo}
                 </Typography>
                 <Typography align={'center'} color="text.secondary">
-                  {item.subtitle}
+                  {item.subTitulo}
                 </Typography>
               </Box>
             </Box>
