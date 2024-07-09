@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
@@ -6,47 +7,20 @@ import Typography from '@mui/material/Typography';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 
-const Gallery = () => {
+const Gallery = ({ data }) => {
   const theme = useTheme();
-
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
 
-  const photos = [
-    {
-      src: 'https://assets.maccarianagency.com/backgrounds/img23.jpg',
-      source: 'https://assets.maccarianagency.com/backgrounds/img23.jpg',
-      rows: 2,
-      cols: 1,
-    },
-    {
-      src: 'https://assets.maccarianagency.com/backgrounds/img25.jpg',
-      source: 'https://assets.maccarianagency.com/backgrounds/img25.jpg',
-      rows: 1,
-      cols: 2,
-    },
-    {
-      src: 'https://assets.maccarianagency.com/backgrounds/img22.jpg',
-      source: 'https://assets.maccarianagency.com/backgrounds/img22.jpg',
-      rows: 1,
-      cols: 1,
-    },
-    {
-      src: 'https://assets.maccarianagency.com/backgrounds/img24.jpg',
-      source: 'https://assets.maccarianagency.com/backgrounds/img24.jpg',
-      rows: 1,
-      cols: 1,
-    },
-    {
-      src: 'https://assets.maccarianagency.com/backgrounds/img21.jpg',
-      source: 'https://assets.maccarianagency.com/backgrounds/img21.jpg',
-      rows: 1,
-      cols: 2,
-    },
-  ];
+  if (!data || !data.video || !data.video.data) {
+    return null;
+  }
 
-  const photosToShow = isMd ? photos : photos.slice(0, photos.length - 1);
+  const title = data.title;
+  const subtitle = data.subtitle;
+  const description = data.description;
+  const videos = data.video.data;
 
   return (
     <Box>
@@ -60,7 +34,7 @@ const Gallery = () => {
           color={'text.secondary'}
           align={'center'}
         >
-          Gallery
+          {subtitle}
         </Typography>
         <Typography
           variant="h4"
@@ -71,11 +45,10 @@ const Gallery = () => {
             marginTop: theme.spacing(1),
           }}
         >
-          Small team. Big hearts.
+          {title}
         </Typography>
         <Typography variant="h6" align={'center'} color={'text.secondary'}>
-          Our focus is always on finding the best people to work with. Our bar
-          is high, but you look ready to take on the challenge.
+          {description}
         </Typography>
       </Box>
       <Box>
@@ -85,23 +58,23 @@ const Gallery = () => {
           rowHeight={isMd ? 300 : 220}
           gap={isMd ? 16 : 8}
         >
-          {photosToShow.map((item, i) => (
+          {videos.map((video, i) => (
             <ImageListItem
               key={i}
-              cols={isMd ? item.cols || 1 : 2}
-              rows={isMd ? item.rows || 1 : 1}
+              cols={isMd ? 1 : 2}
+              rows={isMd ? 1 : 1}
             >
               <img
                 height={'100%'}
                 width={'100%'}
-                src={item.src}
-                alt="..."
+                src={`http://localhost:1337${video.attributes.formats.small.url}`}
+                alt={video.attributes.name}
                 loading="lazy"
                 style={{
                   objectFit: 'cover',
                   filter:
                     theme.palette.mode === 'dark' ? 'brightness(0.7)' : 'none',
-                  cursor: 'poiner',
+                  cursor: 'pointer',
                   borderRadius: 8,
                 }}
               />
@@ -111,6 +84,29 @@ const Gallery = () => {
       </Box>
     </Box>
   );
+};
+
+Gallery.propTypes = {
+  data: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    subtitle: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    video: PropTypes.shape({
+      data: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          attributes: PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            formats: PropTypes.shape({
+              small: PropTypes.shape({
+                url: PropTypes.string.isRequired,
+              }).isRequired,
+            }).isRequired,
+          }).isRequired,
+        }).isRequired
+      ).isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 export default Gallery;

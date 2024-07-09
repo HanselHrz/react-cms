@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_pops_contac_us_pops",
+  "info": {
+    "displayName": "contacUsPop"
+  },
+  "options": {},
+  "attributes": {
+    "question": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "paragraph": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    }
+  }
+}

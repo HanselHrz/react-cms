@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
@@ -10,32 +11,15 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 
-const mock = [
-  {
-    media: 'https://assets.maccarianagency.com/backgrounds/img2.jpg',
-    title: 'Motivation is the first step to success',
-    subtitle:
-      'Once you\'re setup, instantly withdraw payments or deposit into your bank account within 2-3 business days.',
-  },
-  {
-    media: 'https://assets.maccarianagency.com/backgrounds/img3.jpg',
-    title: 'Success steps for your personal or business life',
-    subtitle:
-      'We make sure to include all the amenities and niceties that a growing startup could possibly need.',
-  },
-  {
-    media: 'https://assets.maccarianagency.com/backgrounds/img4.jpg',
-    title: 'Increasing prosperity with positive thinking',
-    subtitle:
-      'Once you\'re setup, instantly withdraw payments or deposit into your bank account within 2-3 business days.',
-  },
-];
-
-const News = () => {
+const News = ({ data }) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
+
+  if (!data) {
+    return null;
+  }
 
   return (
     <Box>
@@ -46,7 +30,7 @@ const News = () => {
           align={'center'}
           sx={{ fontWeight: 700 }}
         >
-          Our latest news
+          {data.title}
         </Typography>
         <Typography
           variant={'h6'}
@@ -54,14 +38,13 @@ const News = () => {
           color={'text.secondary'}
           align={'center'}
         >
-          After 3 days all of your offers will arrive and you will have another
-          7 days to select your new company.
+          {data.subtitle}
         </Typography>
       </Box>
       <Grid container spacing={isMd ? 4 : 2}>
         <Grid item xs={12} md={8}>
           <Grid container spacing={isMd ? 4 : 2} direction="column">
-            {mock.map((item, index) => (
+            {data.items.map((item, index) => (
               <Grid
                 item
                 xs={12}
@@ -76,14 +59,16 @@ const News = () => {
                   display={'flex'}
                   flexDirection={{ xs: 'column', sm: 'row' }}
                 >
-                  <CardMedia
-                    title={item.title}
-                    image={item.media}
-                    sx={{
-                      height: { xs: 240, sm: 'auto' },
-                      width: { xs: 1, sm: 300 },
-                    }}
-                  />
+                  {item.images && item.images.data && (
+                    <CardMedia
+                      title={item.title}
+                      image={`http://localhost:1337${item.images.data[0].attributes.url}`}
+                      sx={{
+                        height: { xs: 240, sm: 'auto' },
+                        width: { xs: 1, sm: 300 },
+                      }}
+                    />
+                  )}
                   <CardContent>
                     <Box>
                       <Typography
@@ -94,11 +79,11 @@ const News = () => {
                         {item.title}
                       </Typography>
                       <Typography variant="subtitle1" color="text.secondary">
-                        {item.subtitle}
+                        {item.description}
                       </Typography>
                     </Box>
                     <CardActions sx={{ justifyContent: 'flex-end' }}>
-                      <Button>Read More</Button>
+                      <Button>Leer más</Button>
                     </CardActions>
                   </CardContent>
                 </Box>
@@ -108,33 +93,34 @@ const News = () => {
         </Grid>
         <Grid item xs={12} md={4}>
           <Grid container spacing={isMd ? 4 : 2} direction="column">
-            <Grid item xs={12} data-aos="fade-up">
-              <Box component={Card} bgcolor={'primary.main'}>
-                <CardContent>
-                  <Typography
-                    variant="h6"
-                    gutterBottom
-                    color="text.primary"
-                    sx={{ color: 'common.white' }}
-                  >
-                    You like what you’re reading?
-                  </Typography>
-                  <Typography
-                    variant="subtitle1"
-                    color="text.secondary"
-                    sx={{ color: 'common.white' }}
-                  >
-                    Get free online programing tips and resources delivered
-                    directly to your inbox.
-                  </Typography>
-                </CardContent>
-              </Box>
-            </Grid>
+            {data.alert.map((alert, index) => (
+              <Grid item xs={12} data-aos="fade-up" key={index}>
+                <Box component={Card} bgcolor={'primary.main'}>
+                  <CardContent>
+                    <Typography
+                      variant="h6"
+                      gutterBottom
+                      color="text.primary"
+                      sx={{ color: 'common.white' }}
+                    >
+                      {alert.title}
+                    </Typography>
+                    <Typography
+                      variant="subtitle1"
+                      color="text.secondary"
+                      sx={{ color: 'common.white' }}
+                    >
+                      {alert.description}
+                    </Typography>
+                  </CardContent>
+                </Box>
+              </Grid>
+            ))}
             <Grid item xs={12} data-aos="fade-up">
               <Box component={Card}>
                 <CardContent>
                   <Typography variant="h6" gutterBottom color="text.primary">
-                    Interactive decision support system
+                    Sistema interactivo de soporte de decisiones
                   </Typography>
                   <Button
                     variant="contained"
@@ -159,7 +145,7 @@ const News = () => {
                       </Box>
                     }
                   >
-                    View all
+                    Ver todo
                   </Button>
                 </CardContent>
               </Box>
@@ -169,6 +155,10 @@ const News = () => {
       </Grid>
     </Box>
   );
+};
+
+News.propTypes = {
+  data: PropTypes.object.isRequired,
 };
 
 export default News;

@@ -1,15 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-
 import Main from 'layouts/Main';
 import Container from 'components/Container';
 import { ContactCard, Content } from './components';
+import { getTerms } from '../../services/strapi';
 
 const CompanyTerms = () => {
   const theme = useTheme();
+  const [title, setTitle] = useState('');
+  const [subtitle, setSubtitle] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const terms = await getTerms();
+        setTitle(terms.attributes.title);
+        setSubtitle(terms.attributes.subtitle);
+      } catch (error) {
+        console.error('Error fetching the terms data', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <Main>
@@ -25,7 +41,7 @@ const CompanyTerms = () => {
                   color: theme.palette.common.white,
                 }}
               >
-                Company terms & privacy policy
+                {title}
               </Typography>
               <Typography
                 gutterBottom
@@ -33,7 +49,7 @@ const CompanyTerms = () => {
                   color: theme.palette.common.white,
                 }}
               >
-                Last modified on <strong>23 Aug, 2021</strong>
+                {subtitle}
               </Typography>
             </Container>
             <Box

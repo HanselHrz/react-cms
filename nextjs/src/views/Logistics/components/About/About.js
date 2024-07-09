@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
@@ -15,11 +16,15 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 
 import Container from 'components/Container';
 
-const About = () => {
+const About = ({ data }) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
+
+  if (!data) {
+    return null;
+  }
 
   return (
     <Box bgcolor={'#0c133e'}>
@@ -43,7 +48,7 @@ const About = () => {
                       color: 'common.white',
                     }}
                   >
-                    COMPLETE CONTROL
+                    {data.subtitle}
                   </Typography>
                 </Box>
                 <Box marginBottom={2}>
@@ -52,7 +57,7 @@ const About = () => {
                     variant="h4"
                     sx={{ fontWeight: 700, color: 'common.white' }}
                   >
-                    Monitor and analyze usage patterns.
+                    {data.title}
                   </Typography>
                 </Box>
                 <Typography
@@ -60,12 +65,7 @@ const About = () => {
                   component="p"
                   sx={{ color: 'common.white' }}
                 >
-                  Keep track of what's happening with your data, change
-                  permissions, and run reports against your data anywhere in the
-                  world.
-                  <br />
-                  Forward thinking businesses use our cloud backup service to
-                  ensure data reliability and safety.
+                  {data.description}
                 </Typography>
               </Box>
             </Container>
@@ -103,33 +103,51 @@ const About = () => {
                     ))}
                   </Box>
                 </Box>
-                <Typography color="text.primary">
-                  American standards and european culture how to avoid a
-                  disappointing vacation experience while traveling in Europe
-                </Typography>
+                {data.comments.length > 0 && (
+                  <Typography color="text.primary">
+                    {data.comments[0].description}
+                  </Typography>
+                )}
               </CardContent>
-              <CardActions sx={{ paddingBottom: 2 }}>
-                <ListItem component="div" disableGutters sx={{ padding: 0 }}>
-                  <ListItemAvatar>
-                    <Avatar
-                      src={
-                        'https://assets.maccarianagency.com/avatars/img1.jpg'
-                      }
+              {data.comments.length > 0 && (
+                <CardActions sx={{ paddingBottom: 2 }}>
+                  <ListItem component="div" disableGutters sx={{ padding: 0 }}>
+                    <ListItemAvatar>
+                      <Avatar
+                        src={
+                          'https://assets.maccarianagency.com/avatars/img1.jpg'
+                        }
+                      />
+                    </ListItemAvatar>
+                    <ListItemText
+                      sx={{ margin: 0 }}
+                      primary={data.comments[0].userName}
+                      secondary={data.comments[0].state}
                     />
-                  </ListItemAvatar>
-                  <ListItemText
-                    sx={{ margin: 0 }}
-                    primary={'Clara Bertoletti'}
-                    secondary={'MUI lover'}
-                  />
-                </ListItem>
-              </CardActions>
+                  </ListItem>
+                </CardActions>
+              )}
             </Box>
           </Grid>
         </Grid>
       </Container>
     </Box>
   );
+};
+
+About.propTypes = {
+  data: PropTypes.shape({
+    title: PropTypes.string,
+    subtitle: PropTypes.string,
+    description: PropTypes.string,
+    comments: PropTypes.arrayOf(
+      PropTypes.shape({
+        description: PropTypes.string,
+        state: PropTypes.string,
+        userName: PropTypes.string,
+      })
+    ),
+  }),
 };
 
 export default About;

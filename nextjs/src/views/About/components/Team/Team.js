@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
@@ -10,41 +11,17 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 
-const mock = [
-  {
-    name: 'Clara Bertoletti',
-    title: 'MUI lover',
-    avatar: 'https://assets.maccarianagency.com/avatars/img4.jpg',
-  },
-  {
-    name: 'Jhon Anderson',
-    title: 'Senior Frontend Developer',
-    avatar: 'https://assets.maccarianagency.com/avatars/img5.jpg',
-  },
-  {
-    name: 'Chary Smith',
-    title: 'SEO at Comoti',
-    avatar: 'https://assets.maccarianagency.com/avatars/img6.jpg',
-  },
-  {
-    name: 'Clara Bertoletti',
-    title: 'MUI lover',
-    avatar: 'https://assets.maccarianagency.com/avatars/img1.jpg',
-  },
-  {
-    name: 'Jhon Anderson',
-    title: 'Senior Frontend Developer',
-    avatar: 'https://assets.maccarianagency.com/avatars/img2.jpg',
-  },
-  {
-    name: 'Chary Smith',
-    title: 'SEO at Comoti',
-    avatar: 'https://assets.maccarianagency.com/avatars/img3.jpg',
-  },
-];
-
-const Team = () => {
+const Team = ({ data }) => {
   const theme = useTheme();
+
+  if (!data) {
+    return null;
+  }
+
+  const title = data.title;
+  const subtitle = data.subtitle;
+  const description = data.description;
+  const teamMembers = data.items;
 
   return (
     <Box>
@@ -58,7 +35,7 @@ const Team = () => {
           color={'text.secondary'}
           align={'center'}
         >
-          Our team
+          {subtitle}
         </Typography>
         <Typography
           variant="h4"
@@ -69,15 +46,14 @@ const Team = () => {
             marginTop: theme.spacing(1),
           }}
         >
-          Small team. Big hearts.
+          {title}
         </Typography>
         <Typography variant="h6" align={'center'} color={'text.secondary'}>
-          Our focus is always on finding the best people to work with. Our bar
-          is high, but you look ready to take on the challenge.
+          {description}
         </Typography>
       </Box>
       <Grid container spacing={2}>
-        {mock.map((item, i) => (
+        {teamMembers.map((item, i) => (
           <Grid item xs={12} md={4} key={i}>
             <Box
               width={1}
@@ -91,15 +67,15 @@ const Team = () => {
                 <ListItem component="div" disableGutters sx={{ padding: 0 }}>
                   <ListItemAvatar sx={{ marginRight: 3 }}>
                     <Avatar
-                      src={item.avatar}
+                      src={item.images.data ? `http://localhost:1337${item.images.data[0].attributes.url}` : ''}
                       variant={'rounded'}
                       sx={{ width: 100, height: 100, borderRadius: 2 }}
                     />
                   </ListItemAvatar>
                   <ListItemText
                     sx={{ margin: 0 }}
-                    primary={item.name}
-                    secondary={item.title}
+                    primary={item.title}
+                    secondary={item.subtitle}
                     primaryTypographyProps={{ variant: 'h6', fontWeight: 700 }}
                     secondaryTypographyProps={{ variant: 'subtitle1' }}
                   />
@@ -111,6 +87,30 @@ const Team = () => {
       </Grid>
     </Box>
   );
+};
+
+Team.propTypes = {
+  data: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    subtitle: PropTypes.string,
+    description: PropTypes.string,
+    items: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        title: PropTypes.string.isRequired,
+        subtitle: PropTypes.string,
+        images: PropTypes.shape({
+          data: PropTypes.arrayOf(
+            PropTypes.shape({
+              attributes: PropTypes.shape({
+                url: PropTypes.string.isRequired,
+              }).isRequired,
+            })
+          ),
+        }),
+      })
+    ),
+  }).isRequired,
 };
 
 export default Team;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -45,8 +46,10 @@ const mock = [
   },
 ];
 
-const Pricing = () => {
+const Pricing = ({ data }) => {
   const theme = useTheme();
+  const title = data?.title || 'Precios flexibles y transparentes';
+  const subtitle = data?.subtitle || 'Cualquiera que sea tu situación, nuestras ofertas evolucionan según tus necesidades.';
 
   return (
     <Box>
@@ -57,7 +60,7 @@ const Pricing = () => {
           gutterBottom
           sx={{ fontWeight: 700 }}
         >
-          Flexible and transparent pricing
+          {title}
         </Typography>
         <Typography
           variant={'h6'}
@@ -65,7 +68,7 @@ const Pricing = () => {
           color={'text.secondary'}
           align={'center'}
         >
-          Whatever your status, our offers evolve according to your needs.
+          {subtitle}
         </Typography>
       </Box>
       <Grid container spacing={4}>
@@ -148,7 +151,7 @@ const Pricing = () => {
               <Box flexGrow={1} />
               <CardActions sx={{ justifyContent: 'flex-end', padding: 4 }}>
                 <Button size={'large'} variant={'contained'}>
-                  Learn more
+                  Saber más
                 </Button>
               </CardActions>
             </Box>
@@ -157,6 +160,10 @@ const Pricing = () => {
       </Grid>
     </Box>
   );
+};
+
+Pricing.propTypes = {
+  data: PropTypes.object,
 };
 
 export default Pricing;

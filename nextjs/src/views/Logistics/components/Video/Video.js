@@ -1,17 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 
 import Container from 'components/Container';
 
-const Video = () => {
+const Video = ({ data }) => {
+  if (!data) {
+    return null;
+  }
+
   return (
     <Box
       sx={{
         position: 'relative',
-        backgroundImage:
-          'url(https://assets.maccarianagency.com/backgrounds/img50.jpg)',
+        backgroundImage: `url(${data.image || 'https://assets.maccarianagency.com/backgrounds/img50.jpg'})`,
         backgroundPosition: 'center center',
         '&:after': {
           content: '""',
@@ -35,7 +39,7 @@ const Video = () => {
               align={'center'}
               sx={{ fontWeight: 700, color: 'common.white' }}
             >
-              Watch the video
+              {data.title || 'Mira el video'}
             </Typography>
             <Typography
               variant={'h6'}
@@ -44,14 +48,12 @@ const Video = () => {
               align={'center'}
               sx={{ color: 'common.white' }}
             >
-              After 3 days all of your offers will arrive and you will have
-              another 7 days to select your new company.
+              {data.subtitle || 'Después de 3 días, recibirás todas tus ofertas y tendrás otros 7 días para seleccionar tu nueva empresa.'}
             </Typography>
           </Box>
           <Box
             sx={{
-              backgroundImage:
-                'url(https://assets.maccarianagency.com/backgrounds/img50.jpg)',
+              backgroundImage: `url(${data.image || 'https://assets.maccarianagency.com/backgrounds/img50.jpg'})`,
               backgroundPosition: 'center center',
               height: 324,
               maxWidth: 600,
@@ -83,6 +85,10 @@ const Video = () => {
       </Container>
     </Box>
   );
+};
+
+Video.propTypes = {
+  data: PropTypes.object,
 };
 
 export default Video;

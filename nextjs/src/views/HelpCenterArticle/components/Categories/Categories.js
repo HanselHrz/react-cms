@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
@@ -12,9 +13,6 @@ import { colors } from '@mui/material';
 
 const mock = [
   {
-    title: 'Account',
-    subtitle: 'Let’s try to fix your account issues.',
-    count: 8,
     icon: (
       <Box
         component={'svg'}
@@ -35,9 +33,6 @@ const mock = [
     color: colors.amber,
   },
   {
-    title: 'Organizations',
-    subtitle: 'Let’s try to fix your organizational issues.',
-    count: 12,
     icon: (
       <Box
         component={'svg'}
@@ -58,9 +53,6 @@ const mock = [
     color: colors.red,
   },
   {
-    title: 'Customization',
-    subtitle: 'Let’s try to fix your customization issues.',
-    count: 9,
     icon: (
       <Box
         component={'svg'}
@@ -82,13 +74,13 @@ const mock = [
   },
 ];
 
-const Categories = () => {
+const Categories = ({ categoriesData }) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
 
-  const renderContent = (title, subtitle, count, icon, color) => (
+  const renderContent = (title, subtitle, buttonTitle, icon, color) => (
     <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
       <Box
         component={Avatar}
@@ -118,10 +110,14 @@ const Categories = () => {
           fontWeight={700}
           sx={{ color: 'common.black' }}
         >
-          {count} answers
+          {buttonTitle}
         </Typography>
       </Box>
     </Box>
+  );
+
+  const helpcenterinfoSection = categoriesData.find(
+    section => section.section_name === 'helpcenterinfo'
   );
 
   return (
@@ -135,11 +131,10 @@ const Categories = () => {
             fontWeight: 700,
           }}
         >
-          Related Help Center Categories
+          {helpcenterinfoSection?.title}
         </Typography>
         <Typography variant="h6" color={'text.secondary'} data-aos={'fade-up'}>
-          For entrepreneurs, startups and freelancers. If you didn’t find what
-          you needed, these could help!
+          {helpcenterinfoSection?.subtitle}
         </Typography>
         <Box
           display="flex"
@@ -153,7 +148,7 @@ const Categories = () => {
             size="large"
             fullWidth={isMd ? false : true}
           >
-            Contact us
+            {helpcenterinfoSection?.button[0]?.title || 'Contact us'}
           </Button>
           <Box
             component={Button}
@@ -164,16 +159,16 @@ const Categories = () => {
             marginLeft={{ sm: 2 }}
             fullWidth={isMd ? false : true}
           >
-            Read more
+            {helpcenterinfoSection?.button[1]?.title || 'Read more'}
           </Box>
         </Box>
       </Box>
       <Grid container spacing={4}>
-        {mock.map((item, i) => (
-          <Grid item xs={12} md={4} key={i}>
+        {helpcenterinfoSection?.items.map((item, index) => (
+          <Grid item xs={12} md={4} key={item.id}>
             <Card
               sx={{
-                borderTop: `2px solid ${item.color[900]}`,
+                borderTop: `2px solid ${mock[index % mock.length].color[900]}`,
                 borderTopLeftRadius: 0,
                 borderTopRightRadius: 0,
               }}
@@ -182,9 +177,9 @@ const Categories = () => {
                 {renderContent(
                   item.title,
                   item.subtitle,
-                  item.count,
-                  item.icon,
-                  item.color,
+                  item.button[0].title,
+                  mock[index % mock.length].icon,
+                  mock[index % mock.length].color,
                 )}
               </CardContent>
             </Card>
@@ -193,6 +188,37 @@ const Categories = () => {
       </Grid>
     </Box>
   );
+};
+
+Categories.propTypes = {
+  categoriesData: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      section_name: PropTypes.string.isRequired,
+      title: PropTypes.string,
+      subtitle: PropTypes.string,
+      button: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          title: PropTypes.string.isRequired,
+        })
+      ),
+      items: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          title: PropTypes.string.isRequired,
+          subtitle: PropTypes.string,
+          description: PropTypes.string,
+          button: PropTypes.arrayOf(
+            PropTypes.shape({
+              id: PropTypes.number.isRequired,
+              title: PropTypes.string.isRequired,
+            })
+          ).isRequired,
+        })
+      ).isRequired,
+    })
+  ).isRequired,
 };
 
 export default Categories;

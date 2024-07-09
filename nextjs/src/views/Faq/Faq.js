@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { getFaqData } from '../../services/strapi';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 
@@ -8,6 +9,29 @@ import { Content, Footer, Headline } from './components';
 
 const Faq = () => {
   const theme = useTheme();
+  const [faqData, setFaqData] = useState(null);
+
+  useEffect(() => {
+    const fetchFaqData = async () => {
+      try {
+        const data = await getFaqData();
+        setFaqData(data);
+      } catch (error) {
+        console.error('Error fetching FAQ data:', error);
+      }
+    };
+
+    fetchFaqData();
+  }, []);
+
+  if (!faqData) {
+    return <div>Loading...</div>;
+  }
+
+  const heroSection = faqData.find(section => section.section_name === 'hero');
+  const accordionSections = faqData.filter(section => section.section_name.startsWith('accordion'));
+  const questionSection = faqData.find(section => section.section_name === 'question');
+
   return (
     <Main>
       <Box>
@@ -20,15 +44,15 @@ const Faq = () => {
           }}
         >
           <Container>
-            <Headline />
+            <Headline data={heroSection} />
           </Container>
         </Box>
         <Container maxWidth={800}>
-          <Content />
+          <Content data={accordionSections} />
         </Container>
         <Box bgcolor={theme.palette.alternate.main}>
           <Container>
-            <Footer />
+            <Footer data={questionSection} />
           </Container>
         </Box>
       </Box>

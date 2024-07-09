@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { alpha, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 
@@ -18,9 +18,30 @@ import {
   Trucking,
   Video,
 } from './components';
+import { getLogisticData } from '../../services/strapi'; // Asegúrate de que la ruta sea correcta
 
 const Logistics = () => {
   const theme = useTheme();
+  const [logistic, setLogistic] = useState(null);
+
+  useEffect(() => {
+    const fetchLogisticData = async () => {
+      try {
+        const data = await getLogisticData();
+        setLogistic(data);
+      } catch (error) {
+        console.error('Error fetching logistic data:', error);
+      }
+    };
+
+    fetchLogisticData();
+  }, []);
+
+  const getSectionData = (name) => {
+    return logistic?.attributes.sections.data.find(
+      (section) => section.attributes.section_name === name
+    )?.attributes;
+  };
 
   return (
     <Main>
@@ -46,44 +67,48 @@ const Logistics = () => {
         }}
       >
         <Box position={'relative'} zIndex={3}>
-          <Hero />
+          <Hero data={getSectionData('hero')} />
         </Box>
       </Box>
       <Container>
-        <Trucking />
+        <Trucking data={getSectionData('trucking')} />
       </Container>
-      <About />
       <Container>
-        <Features />
+        <About data={getSectionData('about')} />
+      </Container>
+      <Container>
+        <Features data={getSectionData('features')} />
       </Container>
       <Box bgcolor={'alternate.main'}>
         <Container>
-          <News />
+          <News data={getSectionData('news')} />
         </Container>
       </Box>
       <Container>
-        <Team />
+        <Team data={getSectionData('team')} />
       </Container>
-      <Video />
+      <Container>
+        <Video data={getSectionData('video')} />
+      </Container>
       <Box bgcolor={'#11092d'}>
         <Container>
-          <Integrations />
+          <Integrations data={getSectionData('integrations')} />
         </Container>
       </Box>
       <Container>
-        <Pricings />
+        <Pricings data={getSectionData('pricing')} />
       </Container>
       <Box bgcolor={'alternate.main'}>
         <Container>
-          <Jobs />
+          <Jobs data={getSectionData('jobs')} />
         </Container>
       </Box>
       <Container>
-        <AboutBottom />
+        <AboutBottom data={getSectionData('aboutBottom')} />
       </Container>
       <Box bgcolor={'primary.main'}>
         <Container>
-          <Reviews />
+          <Reviews data={getSectionData('reviews')} />
         </Container>
       </Box>
     </Main>

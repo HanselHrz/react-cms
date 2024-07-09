@@ -1,16 +1,24 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-const AboutBottom = () => {
+const AboutBottom = ({ data }) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
+
+  const title = data?.title || 'Monitorea y analiza los patrones de uso.';
+  const description = data?.description || 'Mantén un registro de lo que sucede con tus datos, cambia permisos y ejecuta informes sobre tus datos en cualquier lugar del mundo.';
+
+  const defaultImageUrl = 'https://assets.maccarianagency.com/backgrounds/img51.png';
+  const imageUrlFromData = data?.items?.[0]?.images?.data?.[0]?.attributes?.url;
+  const imageUrl = imageUrlFromData ? `http://localhost:1337${imageUrlFromData}` : defaultImageUrl;
 
   return (
     <Box>
@@ -19,7 +27,7 @@ const AboutBottom = () => {
           <Box
             component={'img'}
             loading="lazy"
-            src="https://assets.maccarianagency.com/backgrounds/img51.png"
+            src={imageUrl}
             width={1}
             height={1}
             maxWidth={400}
@@ -35,25 +43,36 @@ const AboutBottom = () => {
                 fontWeight: 700,
               }}
             >
-              Monitor and analyze usage patterns.
+              {title}
             </Typography>
             <Typography data-aos={'fade-up'}>
-              Keep track of what's happening with your data, change permissions,
-              and run reports against your data anywhere in the world.Keep track
-              of what's happening with your data, change permissions, and run
-              reports against your data anywhere in the world.Keep track of
-              what's happening with your data, change permissions, and run
-              reports against your data anywhere in the world.Keep track of
-              what's happening with your data, change permissions, and run
-              reports against your data anywhere in the world.Keep track of
-              what's happening with your data, change permissions, and run
-              reports against your data anywhere in the world.
+              {description}
             </Typography>
           </Box>
         </Grid>
       </Grid>
     </Box>
   );
+};
+
+AboutBottom.propTypes = {
+  data: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+    items: PropTypes.arrayOf(
+      PropTypes.shape({
+        images: PropTypes.shape({
+          data: PropTypes.arrayOf(
+            PropTypes.shape({
+              attributes: PropTypes.shape({
+                url: PropTypes.string,
+              }),
+            }),
+          ),
+        }),
+      }),
+    ),
+  }),
 };
 
 export default AboutBottom;
